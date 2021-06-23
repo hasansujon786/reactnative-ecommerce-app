@@ -14,9 +14,14 @@ export default function HeaderCartButton() {
   return (
     <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
       <Item
-        title='search'
+        title='cart'
         iconName='ios-cart-outline'
         onPress={() => navigation.navigate('Cart')}
+      />
+      <Item
+        title='menu'
+        iconName='ios-menu'
+        onPress={() => navigation.openDrawer()}
       />
     </HeaderButtons>
   )

@@ -1,4 +1,5 @@
-import Product from '../models/product';
+import Product from '../models/product'
+import Cart from '../models/cart'
 
 export const PRODUCTS = [
   new Product(
@@ -48,6 +49,36 @@ export const PRODUCTS = [
     'https://cdn.pixabay.com/photo/2015/10/03/02/14/pen-969298_1280.jpg',
     "Can be used for role-playing (not the kind of role-playing you're thinking about...).",
     5.49
-  )
-];
+  ),
+]
 
+export const CART_ITEMS = [
+  new Cart(
+    'p1',
+    'Red Shirt',
+    29.99,
+    'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+    1
+  ),
+  new Cart(
+    'p2',
+    'Blue Carpet',
+    29.99,
+    'https://images.pexels.com/photos/6292/blue-pattern-texture-macro.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    1
+  ),
+  new Cart(
+    'p3',
+    'Coffee Mug',
+    29.99,
+    'https://images.pexels.com/photos/160834/coffee-cup-and-saucer-black-coffee-loose-coffee-beans-160834.jpeg?cs=srgb&dl=bean-beans-black-coffee-160834.jpg&fm=jpg',
+    1
+  ),
+  new Cart(
+    'p4',
+    'Coffee Mug',
+    29.99,
+    'https://images.pexels.com/photos/160834/coffee-cup-and-saucer-black-coffee-loose-coffee-beans-160834.jpeg?cs=srgb&dl=bean-beans-black-coffee-160834.jpg&fm=jpg',
+    1
+  ),
+]

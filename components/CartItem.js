@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native'
 
-function CartItem({ item, onSelect }) {
+function CartItem({ item, onSelect, onRemove }) {
   return (
     <View style={[styles.container, { backgroundColor: 'white' }]}>
       <TouchableOpacity onPress={onSelect}>
@@ -18,7 +18,7 @@ function CartItem({ item, onSelect }) {
         <Text style={{ fontWeight: 'bold', marginTop: 4, fontSize: 18 }}>${item.productPrice}</Text>
       </View>
       <View style={styles.controls}>
-        <Button title='adddd' />
+        <Button title='Remove' onPress={onRemove} />
       </View>
     </View>
   )

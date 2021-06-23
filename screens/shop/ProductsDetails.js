@@ -28,7 +28,16 @@ function ProductsDetails({ navigation, route }) {
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <Button title='ADD TO CART' onPress={() => dispatch(addToCart(foundproduct))} />
+        <View style={{ backgroundColor: 'white', flexBasis: '49%' }}>
+          <Button title='BUY NOW' onPress={() => dispatch(addToCart(foundproduct))} />
+        </View>
+        <View style={{ backgroundColor: 'white', flexBasis: '49%' }}>
+          <Button
+            title='ADD TO CART'
+            color='#FF3D00'
+            onPress={() => dispatch(addToCart(foundproduct))}
+          />
+        </View>
       </View>
     </View>
   )
@@ -45,6 +54,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
+    paddingHorizontal: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 })
 

@@ -4,16 +4,16 @@ import HeaderCartButton from '../components/ui/HeaderCartButton'
 import HomeScreen from '../screens/shop/HomeScreen'
 import ProductsDetails from '../screens/shop/ProductsDetails'
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen'
-import Cart from '../screens/shop/Cart'
+import CartScreen from '../screens/shop/CartScreen'
 const Stack = createStackNavigator()
 
 export default function ShopStackNavigator() {
   return (
-    // <Stack.Navigator>
     <Stack.Navigator initialRouteName='ProductsOverview'>
+    {/* <Stack.Navigator initialRouteName='Cart'> */}
       <Stack.Screen
         name='Cart'
-        component={Cart}
+        component={CartScreen}
         options={{ headerRight: () => <HeaderCartButton /> }}
       />
       <Stack.Screen name='Home' component={HomeScreen} />
