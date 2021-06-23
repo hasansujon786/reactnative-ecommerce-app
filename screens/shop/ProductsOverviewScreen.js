@@ -1,23 +1,28 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { Button, Text, FlatList, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import ProductPreview from '../../components/ProductPreview'
+import { addToCart } from '../../store/actions/cart'
 
 function ProductsOverviewScreen({ navigation }) {
+  const dispatch = useDispatch()
   const avalableProducts = useSelector((state) => state.product.avalableProducts)
 
   return (
-    <View style={{ padding: 16 }}>
+    <View style={{ paddingBottom: 0 }}>
       <FlatList
+        style={{ paddingHorizontal: 12 }}
         data={avalableProducts}
         renderItem={(itemData) => (
-          <View style={{ marginBottom: 12 }}>
+          <View style={{ marginTop: 12 }}>
             <ProductPreview
               product={itemData.item}
               onPress={() =>
                 navigation.navigate('ProductsDetails', { productId: itemData.item.id })
               }
-            />
+            >
+              <Button title='add' onPress={() => dispatch(addToCart(itemData.item))} />
+            </ProductPreview>
           </View>
         )}
       />

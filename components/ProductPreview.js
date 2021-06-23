@@ -1,16 +1,15 @@
 import React from 'react'
 import {
-  View,
-  Text,
   Image,
-  StyleSheet,
-  Button,
-  TouchableNativeFeedback,
   Platform,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
   TouchableOpacity,
+  View,
 } from 'react-native'
 
-function ProductPreview({ product, ...props }) {
+function ProductPreview({ product, children, ...props }) {
   const NativeFeadback = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
   return (
     <NativeFeadback useForeground {...props}>
@@ -23,9 +22,7 @@ function ProductPreview({ product, ...props }) {
               $ {product.price}
             </Text>
           </View>
-          <View style={[styles.buttonContainer]}>
-            <Button title='add' />
-          </View>
+          <View style={[styles.buttonContainer]}>{children}</View>
         </View>
       </View>
     </NativeFeadback>
