@@ -1,11 +1,10 @@
 import React from 'react'
-import { Button, Text, FlatList, View } from 'react-native'
+import { Button, FlatList, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ProductPreview from '../../components/ProductPreview'
-import { Colors } from '../../constans/color'
 import { addToCart } from '../../store/actions/cart'
 
-function ProductsOverviewScreen({ navigation }) {
+function UserProductScreen({ navigation }) {
   const dispatch = useDispatch()
   const avalableProducts = useSelector((state) => state.product.avalableProducts)
 
@@ -19,14 +18,10 @@ function ProductsOverviewScreen({ navigation }) {
             <ProductPreview
               product={itemData.item}
               onPress={() =>
-                navigation.navigate('ProductsDetails', { productId: itemData.item.id })
+                navigation.navigate('AP-ProductsEdit', { productId: itemData.item.id })
               }
             >
-              <Button
-                title='add'
-                color={Colors.accent}
-                onPress={() => dispatch(addToCart(itemData.item))}
-              />
+              <Button title='edit' onPress={() => dispatch(addToCart(itemData.item))} />
             </ProductPreview>
           </View>
         )}
@@ -35,4 +30,4 @@ function ProductsOverviewScreen({ navigation }) {
   )
 }
 
-export default ProductsOverviewScreen
+export default UserProductScreen

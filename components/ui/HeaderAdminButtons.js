@@ -9,14 +9,19 @@ const IoniconsHeaderButton = (props) => (
   <HeaderButton IconComponent={Ionicons} iconSize={23} {...props} />
 )
 
-export default function HeaderCartButton() {
+export default function HeaderAdminButtons() {
   const navigation = useNavigation()
   return (
     <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
       <Item
-        title='Cart'
-        iconName='ios-cart-outline'
-        onPress={() => navigation.navigate('Cart')}
+        title='Orders'
+        iconName='reader-outline'
+        onPress={() => navigation.navigate('AP-Orders')}
+      />
+      <Item
+        title='Create Product'
+        iconName='create-outline'
+        onPress={() => navigation.navigate('AP-ProductsEdit', {productId: null})}
       />
       <Item
         title='Menu'
