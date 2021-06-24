@@ -14,11 +14,6 @@ export default function HeaderAdminButtons() {
   return (
     <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
       <Item
-        title='Orders'
-        iconName='reader-outline'
-        onPress={() => navigation.navigate('AP-Orders')}
-      />
-      <Item
         title='Create Product'
         iconName='create-outline'
         onPress={() => navigation.navigate('AP-ProductsEdit', {productId: null})}
