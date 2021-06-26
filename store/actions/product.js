@@ -55,16 +55,28 @@ export const deleteProduct = (productId) => {
   }
 }
 
-export const updateProdcut = (productId, product) => {
-  return { type: UPDATE_PRODUCT, productId, product }
+export const updateProdcut = (productId, updatedProduct) => {
+  return async (dispatch) => {
+    try {
+      await db.collection(COLLECTION.products).doc(productId).update(updatedProduct)
+    } catch (err) {
+      console.log(err)
+    }
+    dispatch({ type: UPDATE_PRODUCT, productId, product: updatedProduct })
+  }
+}
+
+export const fetchOneProductById = (productId) => {
+  return async () => {
+    const doc = await db.collection(COLLECTION.products).doc(productId).get()
+    const data = doc.data()
+    data.id = doc.id
+    console.log('fetchOneProductById', data)
+    // dispatch({ type: CREATE_PRODUCT, product })
+  }
 }
 
 export const removeFromCart = (productId) => {
   return { type: REMOVE_FROM_CART, pid: productId }
 }
 
-// export const createProduct = (product) => {
-//   return (dispatch) => {
-//     dispatch({ type: CREATE_PRODUCT, product })
-//   }
-// }
