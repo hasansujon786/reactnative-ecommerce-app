@@ -6,7 +6,7 @@ import { auth } from '../firebase/firebase'
 import { Ionicons } from '@expo/vector-icons'
 import AdminStackNavigator from './AdminNavigator'
 import AuthNavigator from './AuthNavigator'
-import OrdersStackNavigator from './OrdersNavigator'
+import AccountStackNavigator from './AccountNavigator'
 import ShopStackNavigator from './ShopNavigator'
 
 const Tab = createBottomTabNavigator()
@@ -14,10 +14,18 @@ const tabScreenOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName
 
-    if (route.name === 'Shop') {
-      iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline'
-    } else if (route.name === 'Settings') {
-      iconName = focused ? 'ios-list-box' : 'ios-list'
+    switch (route.name) {
+      case 'Shop':
+        iconName = focused ? 'home' : 'home-outline'
+        break
+      case 'Account':
+        iconName = focused ? 'person' : 'person-outline'
+        break
+      case 'Admin':
+        iconName = focused ? 'clipboard' : 'clipboard-outline'
+        break
+      default:
+        iconName = focused ? 'reorder-two' : 'reorder-two-outline'
     }
 
     // You can return any component that you like here!
@@ -65,9 +73,9 @@ export default function RootNavigator() {
         }}
       >
         <Tab.Screen name='Shop' component={ShopStackNavigator} />
-        {user && <Tab.Screen name='Orders' component={OrdersStackNavigator} />}
         {user && <Tab.Screen name='Admin' component={AdminStackNavigator} />}
-        <Tab.Screen name='SingIn' component={AuthNavigator} />
+        {user && <Tab.Screen name='Account' component={AccountStackNavigator} />}
+        {!user && <Tab.Screen name='Account' component={AuthNavigator} />}
       </Tab.Navigator>
     </NavigationContainer>
   )
