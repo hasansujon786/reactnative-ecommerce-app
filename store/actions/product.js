@@ -1,15 +1,16 @@
-import { db } from '../../firebase/firebase'
+import { COLLECTION, db } from '../../firebase/firebase'
 import Product from '../../models/product'
 
 export const SET_PRODUCT = 'SET_PRODUCT'
 export const CREATE_PRODUCT = 'CREATE_PRODUCT'
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const DELETE_PRODUCT = 'DELETE_PRODUCT'
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 export const fetchProduct = () => {
   return async (dispatch) => {
     const fetchedProducts = []
-    const snapshot = await db.collection('products').get()
+    const snapshot = await db.collection(COLLECTION.products).get()
     snapshot.forEach((doc) => {
       const data = doc.data()
       const product = new Product(
@@ -30,7 +31,7 @@ export const fetchProduct = () => {
 export const createProduct = (product) => {
   return async (dispatch) => {
     const uid = 'sdfsdfsdf'
-    const docRef = await db.collection('products').add({ ...product, uid })
+    const docRef = await db.collection(COLLECTION.products).add({ ...product, uid })
     const newProduct = new Product(
       docRef.id,
       uid,
@@ -40,6 +41,17 @@ export const createProduct = (product) => {
       product.price
     )
     dispatch({ type: CREATE_PRODUCT, newProduct })
+  }
+}
+
+export const deleteProduct = (productId) => {
+  return async (dispatch) => {
+    try {
+      await db.collection(COLLECTION.products).doc(productId).delete()
+      dispatch({ type: DELETE_PRODUCT, productId })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

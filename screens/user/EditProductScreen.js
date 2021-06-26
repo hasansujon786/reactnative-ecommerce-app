@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Colors } from '../../constans/color'
 import { useInputState } from '../../hooks'
-import { createProduct, updateProdcut } from '../../store/actions/product'
+import { createProduct, deleteProduct, updateProdcut } from '../../store/actions/product'
 
 function EditProductScreen({ navigation, route }) {
   const dispatch = useDispatch()
@@ -52,6 +52,17 @@ function EditProductScreen({ navigation, route }) {
       <View style={{ marginTop: 20 }}>
         <Button title={productId ? 'Update product' : 'Create Product'} onPress={handleSubmit} />
       </View>
+      {productId && (
+        <View style={{ marginTop: 20 }}>
+          <Button
+            title='Delete'
+            onPress={() => {
+              dispatch(deleteProduct(productId))
+              navigation.goBack()
+            }}
+          />
+        </View>
+      )}
     </View>
   )
 }
