@@ -18,11 +18,6 @@ export default function HeaderCartButton() {
         iconName='ios-cart-outline'
         onPress={() => navigation.navigate('Cart')}
       />
-      <Item
-        title='Menu'
-        iconName='ios-menu'
-        onPress={() => navigation.openDrawer()}
-      />
     </HeaderButtons>
   )
 }

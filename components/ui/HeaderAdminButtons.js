@@ -18,11 +18,6 @@ export default function HeaderAdminButtons() {
         iconName='create-outline'
         onPress={() => navigation.navigate('AP-ProductsEdit', {productId: null})}
       />
-      <Item
-        title='Menu'
-        iconName='ios-menu'
-        onPress={() => navigation.openDrawer()}
-      />
     </HeaderButtons>
   )
 }

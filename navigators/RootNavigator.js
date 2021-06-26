@@ -1,14 +1,29 @@
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { LogBox, Platform } from 'react-native'
 import { auth } from '../firebase/firebase'
+import { Ionicons } from '@expo/vector-icons'
 import AdminStackNavigator from './AdminNavigator'
 import AuthNavigator from './AuthNavigator'
 import OrdersStackNavigator from './OrdersNavigator'
 import ShopStackNavigator from './ShopNavigator'
 
-const Drawer = createDrawerNavigator()
+const Tab = createBottomTabNavigator()
+const tabScreenOptions = ({ route }) => ({
+  tabBarIcon: ({ focused, color, size }) => {
+    let iconName
+
+    if (route.name === 'Shop') {
+      iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline'
+    } else if (route.name === 'Settings') {
+      iconName = focused ? 'ios-list-box' : 'ios-list'
+    }
+
+    // You can return any component that you like here!
+    return <Ionicons name={iconName} size={size} color={color} />
+  },
+})
 
 export default function RootNavigator() {
   const [user, setUser] = useState(null)
@@ -41,12 +56,19 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName='Shop'>
-        <Drawer.Screen name='Shop' component={ShopStackNavigator} />
-        {user && <Drawer.Screen name='Orders' component={OrdersStackNavigator} />}
-        {user && <Drawer.Screen name='Admin' component={AdminStackNavigator} />}
-        <Drawer.Screen name='SingIn' component={AuthNavigator} />
-      </Drawer.Navigator>
+      <Tab.Navigator
+        initialRouteName='Shop'
+        screenOptions={tabScreenOptions}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
+        <Tab.Screen name='Shop' component={ShopStackNavigator} />
+        {user && <Tab.Screen name='Orders' component={OrdersStackNavigator} />}
+        {user && <Tab.Screen name='Admin' component={AdminStackNavigator} />}
+        <Tab.Screen name='SingIn' component={AuthNavigator} />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }
