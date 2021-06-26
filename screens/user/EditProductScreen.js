@@ -15,10 +15,13 @@ function EditProductScreen({ navigation, route }) {
   )
   // const foundProductIdx = useSelector(state => avalableProducts.findIndex(pod => pod.id == productId))
 
-  const titleInputState = useInputState(productId ? foundProduct.title : '')
-  const imageUrlInputState = useInputState(productId ? foundProduct.imageUrl : '')
-  const descriptionInputState = useInputState(productId ? foundProduct.description : '')
-  const priceInputState = useInputState(productId ? foundProduct.price : '')
+  let url =
+    'https://images.pexels.com/photos/6292/blue-pattern-texture-macro.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+  let description = 'this is a description'
+  const titleInputState = useInputState(productId ? foundProduct.title : 'Product title')
+  const imageUrlInputState = useInputState(productId ? foundProduct.imageUrl : url)
+  const descriptionInputState = useInputState(productId ? foundProduct.description : description)
+  const priceInputState = useInputState(productId ? String(foundProduct.price) : '343')
 
   const handleSubmit = () => {
     const product = {

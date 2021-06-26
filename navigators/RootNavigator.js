@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import Spinner from '../components/ui/Spinner'
+import { LogBox, Platform } from 'react-native'
 import { auth } from '../firebase/firebase'
 import AdminStackNavigator from './AdminNavigator'
 import AuthNavigator from './AuthNavigator'
@@ -31,8 +31,12 @@ export default function RootNavigator() {
     return unsubscribeAuth
   }, [])
 
-  if (isLoading) {
-    return <Spinner />
+  // if (isLoading) {
+  //   return <Spinner />
+  // }
+
+  if (Platform.OS == 'android') {
+    LogBox.ignoreLogs(['Setting a timer'])
   }
 
   return (
