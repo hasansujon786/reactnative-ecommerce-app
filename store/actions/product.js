@@ -39,7 +39,7 @@ export const createProduct = (product) => {
       product.description,
       product.price
     )
-    dispatch({ type: CREATE_PRODUCT, product: newProduct })
+    dispatch({ type: CREATE_PRODUCT, newProduct })
   }
 }
 

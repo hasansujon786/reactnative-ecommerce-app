@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid'
-import Product from '../../models/product'
 import { CREATE_PRODUCT, SET_PRODUCT, UPDATE_PRODUCT } from '../actions/product'
 
 const initialState = {
@@ -11,20 +9,12 @@ export default (state = initialState, action) => {
     case SET_PRODUCT: {
       return {
         ...state,
-        avalableProducts: action.products
+        avalableProducts: action.products,
       }
     }
 
     case CREATE_PRODUCT: {
-      const { product } = action
-      const newProduct = new Product(
-        uuid(),
-        'u1',
-        product.title,
-        product.imageUrl,
-        product.description,
-        product.price
-      )
+      const { newProduct } = action
       return {
         ...state,
         avalableProducts: state.avalableProducts.concat(newProduct),
