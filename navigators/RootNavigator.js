@@ -1,12 +1,11 @@
+import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
-import { LogBox, Platform } from 'react-native'
-import { auth } from '../firebase/firebase'
-import { Ionicons } from '@expo/vector-icons'
+import React from 'react'
+import useAuthUserListener from '../hooks/useAuthUserListener'
+import AccountStackNavigator from './AccountNavigator'
 import AdminStackNavigator from './AdminNavigator'
 import AuthNavigator from './AuthNavigator'
-import AccountStackNavigator from './AccountNavigator'
 import ShopStackNavigator from './ShopNavigator'
 
 const Tab = createBottomTabNavigator()
@@ -34,34 +33,11 @@ const tabScreenOptions = ({ route }) => ({
 })
 
 export default function RootNavigator() {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // onAuthStateChanged returns an unsubscriber
-    const unsubscribeAuth = auth.onAuthStateChanged(async (authUser) => {
-      try {
-        authUser ? setUser(authUser) : setUser(null)
-        setIsLoading(false)
-        setUser(authUser)
-        console.log({ authUser })
-      } catch (error) {
-        console.log(error)
-      }
-    })
-
-    // unsubscribe auth listener on unmount
-    return unsubscribeAuth
-  }, [])
+  let { uid } = useAuthUserListener()
 
   // if (isLoading) {
   //   return <Spinner />
   // }
-
-  if (Platform.OS == 'android') {
-    LogBox.ignoreLogs(['Setting a timer'])
-  }
-
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -73,9 +49,9 @@ export default function RootNavigator() {
         }}
       >
         <Tab.Screen name='Shop' component={ShopStackNavigator} />
-        {user && <Tab.Screen name='Admin' component={AdminStackNavigator} />}
-        {user && <Tab.Screen name='Account' component={AccountStackNavigator} />}
-        {!user && <Tab.Screen name='Account' component={AuthNavigator} />}
+        {uid && <Tab.Screen name='Admin' component={AdminStackNavigator} />}
+        {uid && <Tab.Screen name='Account' component={AccountStackNavigator} />}
+        {!uid && <Tab.Screen name='Account' component={AuthNavigator} />}
       </Tab.Navigator>
     </NavigationContainer>
   )
