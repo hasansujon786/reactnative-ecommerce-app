@@ -1,15 +1,20 @@
 import { v4 as uuid } from 'uuid'
-// import Product from '../../models/product';
-import { PRODUCTS } from '../../data/dummy'
 import Product from '../../models/product'
-import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../actions/product'
+import { CREATE_PRODUCT, SET_PRODUCT, UPDATE_PRODUCT } from '../actions/product'
 
 const initialState = {
-  avalableProducts: PRODUCTS,
+  avalableProducts: [],
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_PRODUCT: {
+      return {
+        ...state,
+        avalableProducts: action.products
+      }
+    }
+
     case CREATE_PRODUCT: {
       const { product } = action
       const newProduct = new Product(

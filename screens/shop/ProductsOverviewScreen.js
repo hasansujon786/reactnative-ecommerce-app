@@ -1,13 +1,18 @@
-import React from 'react'
-import { Button, Text, FlatList, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { Button, FlatList, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ProductPreview from '../../components/ProductPreview'
 import { Colors } from '../../constans/color'
 import { addToCart } from '../../store/actions/cart'
+import { fetchProduct } from '../../store/actions/product'
 
 function ProductsOverviewScreen({ navigation }) {
   const dispatch = useDispatch()
   const avalableProducts = useSelector((state) => state.product.avalableProducts)
+
+  useEffect(() => {
+    dispatch(fetchProduct())
+  }, [])
 
   return (
     <View style={{ paddingBottom: 0 }}>

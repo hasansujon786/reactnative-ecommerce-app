@@ -11,6 +11,7 @@ function SignInScreen({ navigation }) {
   const handleSubmit = async () => {
     try {
       await loginWithEmail(userEmailState.value, userPWState.value)
+      navigation.navigate('Shop')
     } catch (error) {
       console.log(error)
     }

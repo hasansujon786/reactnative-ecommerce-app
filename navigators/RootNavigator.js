@@ -11,7 +11,7 @@ import ShopStackNavigator from './ShopNavigator'
 const Drawer = createDrawerNavigator()
 
 export default function RootNavigator() {
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -20,6 +20,7 @@ export default function RootNavigator() {
       try {
         authUser ? setUser(authUser) : setUser(null)
         setIsLoading(false)
+        setUser(authUser)
         console.log({ authUser })
       } catch (error) {
         console.log(error)
@@ -36,11 +37,11 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName='Auth'>
+      <Drawer.Navigator initialRouteName='Shop'>
         <Drawer.Screen name='Shop' component={ShopStackNavigator} />
-        <Drawer.Screen name='Orders' component={OrdersStackNavigator} />
-        <Drawer.Screen name='Admin' component={AdminStackNavigator} />
-        <Drawer.Screen name='Auth' component={AuthNavigator} />
+        {user && <Drawer.Screen name='Orders' component={OrdersStackNavigator} />}
+        {user && <Drawer.Screen name='Admin' component={AdminStackNavigator} />}
+        <Drawer.Screen name='SingIn' component={AuthNavigator} />
       </Drawer.Navigator>
     </NavigationContainer>
   )
