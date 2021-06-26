@@ -1,4 +1,4 @@
-import {db} from '../../firebase/firebase'
+import { db } from '../../firebase/firebase'
 import Product from '../../models/product'
 
 export const SET_PRODUCT = 'SET_PRODUCT'
@@ -28,7 +28,19 @@ export const fetchProduct = () => {
 }
 
 export const createProduct = (product) => {
-  return { type: CREATE_PRODUCT, product }
+  return async (dispatch) => {
+    const uid = 'sdfsdfsdf'
+    const docRef = await db.collection('products').add({ ...product, uid })
+    const newProduct = new Product(
+      docRef.id,
+      uid,
+      product.title,
+      product.imageUrl,
+      product.description,
+      product.price
+    )
+    dispatch({ type: CREATE_PRODUCT, product: newProduct })
+  }
 }
 
 export const updateProdcut = (productId, product) => {
@@ -38,3 +50,9 @@ export const updateProdcut = (productId, product) => {
 export const removeFromCart = (productId) => {
   return { type: REMOVE_FROM_CART, pid: productId }
 }
+
+// export const createProduct = (product) => {
+//   return (dispatch) => {
+//     dispatch({ type: CREATE_PRODUCT, product })
+//   }
+// }
