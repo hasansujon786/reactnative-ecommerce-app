@@ -1,14 +1,18 @@
-import React from 'react'
-import { FlatList, View, Button, ScrollView, Text, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from '../../components/CartItem'
-import { removeFromCart } from '../../store/actions/cart'
+import { fetchOnlyUserCarts, removeFromCart } from '../../store/actions/cart'
 import { addOrder } from '../../store/actions/order'
 
 export default function Cart({ navigation }) {
   const cartTotalAmount = useSelector((state) => state.cart.totalAmout)
   const cartItems = useSelector((state) => state.cart.items)
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchOnlyUserCarts())
+  }, [])
+
   return (
     <View style={{ flex: 1 }}>
       {/* <ScrollView> */}
@@ -30,7 +34,7 @@ export default function Cart({ navigation }) {
         renderItem={(itemData) => (
           <CartItem
             onSelect={() => navigation.navigate('ProductsDetails', { productId: itemData.item.id })}
-            onRemove={() => dispatch(removeFromCart(itemData.item.productId))}
+            onRemove={() => dispatch(removeFromCart(itemData.item.id))}
             item={itemData.item}
           />
         )}
