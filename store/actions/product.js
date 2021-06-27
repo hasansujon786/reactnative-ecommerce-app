@@ -30,17 +30,21 @@ export const fetchProduct = () => {
 
 export const createProduct = (product) => {
   return async (dispatch) => {
-    const uid = 'sdfsdfsdf'
-    const docRef = await db.collection(COLLECTION.products).add({ ...product, uid })
-    const newProduct = new Product(
-      docRef.id,
-      uid,
-      product.title,
-      product.imageUrl,
-      product.description,
-      product.price
-    )
-    dispatch({ type: CREATE_PRODUCT, newProduct })
+    try {
+      const docRef = await db.collection(COLLECTION.products).add(product)
+      const newProduct = new Product(
+        docRef.id,
+        product.uid,
+        product.title,
+        product.imageUrl,
+        product.description,
+        product.price
+      )
+      dispatch({ type: CREATE_PRODUCT, newProduct })
+    } catch (err) {
+      /* handle error */
+      console.log(err)
+    }
   }
 }
 
@@ -59,10 +63,10 @@ export const updateProdcut = (productId, updatedProduct) => {
   return async (dispatch) => {
     try {
       await db.collection(COLLECTION.products).doc(productId).update(updatedProduct)
+      dispatch({ type: UPDATE_PRODUCT, productId, product: updatedProduct })
     } catch (err) {
       console.log(err)
     }
-    dispatch({ type: UPDATE_PRODUCT, productId, product: updatedProduct })
   }
 }
 
@@ -79,4 +83,3 @@ export const fetchOneProductById = (productId) => {
 export const removeFromCart = (productId) => {
   return { type: REMOVE_FROM_CART, pid: productId }
 }
-

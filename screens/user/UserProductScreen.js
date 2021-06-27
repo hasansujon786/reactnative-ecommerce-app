@@ -6,19 +6,20 @@ import { addToCart } from '../../store/actions/cart'
 
 function UserProductScreen({ navigation }) {
   const dispatch = useDispatch()
-  const avalableProducts = useSelector((state) => state.product.avalableProducts)
+  const uid = useSelector((state) => state.auth.uid)
+  const currentUserProducts = useSelector((state) => state.product.avalableProducts.filter((prod) => prod.uid === uid))
 
   return (
     <View style={{ paddingBottom: 0 }}>
       <FlatList
         style={{ paddingHorizontal: 12 }}
-        data={avalableProducts}
+        data={currentUserProducts}
         renderItem={(itemData) => (
           <View style={{ marginTop: 12 }}>
             <ProductPreview
               product={itemData.item}
               onPress={() =>
-                navigation.navigate('AP-ProductsEdit', { productId: itemData.item.id })
+                navigation.navigate('AdminEditProduct', { productId: itemData.item.id })
               }
             >
               <Button title='edit' onPress={() => dispatch(addToCart(itemData.item))} />

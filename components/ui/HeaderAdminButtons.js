@@ -16,7 +16,7 @@ export default function HeaderAdminButtons() {
       <Item
         title='Create Product'
         iconName='create-outline'
-        onPress={() => navigation.navigate('AP-ProductsEdit', {productId: null})}
+        onPress={() => navigation.navigate('AdminEditProduct', {productId: null})}
       />
     </HeaderButtons>
   )

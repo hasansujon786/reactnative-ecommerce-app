@@ -9,12 +9,12 @@ export default function AdminStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='AP-Products'
+        name='AdminProducts'
         component={UserProductScreen}
         options={{ headerRight: () => <HeaderAdminButtons /> }}
       />
       <Stack.Screen
-        name='AP-ProductsEdit'
+        name='AdminEditProduct'
         component={EditProductScreen}
         options={{ headerRight: () => <HeaderAdminButtons /> }}
       />

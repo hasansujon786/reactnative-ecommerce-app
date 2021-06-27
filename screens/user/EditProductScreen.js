@@ -7,6 +7,7 @@ import { createProduct, deleteProduct, updateProdcut } from '../../store/actions
 
 function EditProductScreen({ navigation, route }) {
   const dispatch = useDispatch()
+  const uid = useSelector((state) => state.auth.uid)
 
   const { productId } = route.params
   console.log(productId)
@@ -25,6 +26,7 @@ function EditProductScreen({ navigation, route }) {
 
   const handleSubmit = () => {
     const product = {
+      uid: uid,
       title: titleInputState.value,
       imageUrl: imageUrlInputState.value,
       description: descriptionInputState.value,
