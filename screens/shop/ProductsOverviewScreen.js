@@ -19,8 +19,15 @@ function ProductsOverviewScreen({ navigation }) {
       <FlatList
         style={{ paddingHorizontal: 12 }}
         data={avalableProducts}
+        numColumns={2}
         renderItem={(itemData) => (
-          <View style={{ marginTop: 12 }}>
+          <View
+            style={{
+              marginTop: itemData.index % 2 == 0 ? 12 : 40,
+              paddingHorizontal: 6,
+              width: '50%',
+            }}
+          >
             <ProductPreview
               product={itemData.item}
               onPress={() =>

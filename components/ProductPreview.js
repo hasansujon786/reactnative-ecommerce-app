@@ -1,54 +1,34 @@
+import { AspectRatio, Box, Heading, Image, Stack } from 'native-base'
 import React from 'react'
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Platform, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
 
 function ProductPreview({ product, children, ...props }) {
   const NativeFeadback = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
   return (
     <NativeFeadback useForeground {...props}>
-      <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: product.imageUrl }} />
-        <View style={styles.flexWrapper}>
-          <View style={{ flexBasis: '80%' }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{product.title}</Text>
-            <Text style={{ fontWeight: 'bold', marginTop: 8, fontSize: 22 }}>
-              $ {product.price}
-            </Text>
-          </View>
-          <View style={[styles.buttonContainer]}>{children}</View>
-        </View>
-      </View>
+      <Box maxWidth='100%'>
+        <AspectRatio ratio={3 / 4}>
+          <Image
+            source={{
+              uri: product.imageUrl,
+            }}
+            alt={product.title}
+            width={'100%'}
+            height={'100%'}
+            rounded='lg'
+          />
+        </AspectRatio>
+        <Stack mt={2}>
+          <Heading size='sm' noOfLines={2} color='blueGray.700'>
+            {product.title}
+          </Heading>
+          <Heading size='md' mt={0} noOfLines={2} color='accent'>
+            ${product.price.toFixed(2)}
+          </Heading>
+        </Stack>
+      </Box>
     </NativeFeadback>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#eee',
-    borderRadius: 4,
-    overflow: 'hidden',
-    elevation: 3,
-    borderColor: '#ddd',
-    borderWidth: 1,
-  },
-  image: {
-    width: '100%',
-    height: 200,
-  },
-  buttonContainer: {},
-  flexWrapper: {
-    padding: 12,
-    paddingBottom: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-})
 
 export default ProductPreview

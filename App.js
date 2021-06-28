@@ -1,3 +1,4 @@
+import { extendTheme, NativeBaseProvider } from 'native-base'
 import React from 'react'
 import { LogBox, Platform } from 'react-native'
 import { Provider } from 'react-redux'
@@ -9,9 +10,17 @@ export default function App() {
     LogBox.ignoreLogs(['Setting a timer'])
   }
 
+  const theme = extendTheme({
+    colors: {
+      accent: '#FF7465',
+    },
+  })
+
   return (
-    <Provider store={store}>
-      <RootNavigator />
-    </Provider>
+    <NativeBaseProvider theme={theme}>
+      <Provider store={store}>
+        <RootNavigator />
+      </Provider>
+    </NativeBaseProvider>
   )
 }
