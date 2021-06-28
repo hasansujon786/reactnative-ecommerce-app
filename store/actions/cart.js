@@ -1,5 +1,5 @@
 import { COLLECTION, db } from '../../firebase/firebase'
-import store from '../../store/index'
+import store from '../index'
 
 export const SET_CART = 'SET_CART'
 export const ADD_TO_CART = 'ADD_TO_CART'

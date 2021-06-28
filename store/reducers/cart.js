@@ -1,6 +1,7 @@
 // import { CART_ITEMS } from '../../data/dummy'
 import Cart from '../../models/cart'
 import { ADD_TO_CART, REMOVE_FROM_CART, SET_CART } from '../actions/cart'
+import { ADD_ORDER } from '../actions/order'
 
 const initialState = {
   totalAmout: 0,
@@ -47,6 +48,15 @@ export default (state = initialState, action) => {
         ...state,
         totalAmout: state.totalAmout - foundItem.quantity * foundItem.productPrice,
         items: state.items.filter((item) => item.id != cartId),
+      }
+    }
+
+    // capture this from order action
+    case ADD_ORDER: {
+      return {
+        ...state,
+        totalAmout: 0,
+        items: [],
       }
     }
   }

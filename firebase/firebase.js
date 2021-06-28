@@ -25,5 +25,6 @@ export const passwordReset = email => auth.sendPasswordResetEmail(email);
 
 export const COLLECTION = {
   products: 'products',
-  carts: 'carts'
+  carts: 'carts',
+  orders: 'orders'
 }

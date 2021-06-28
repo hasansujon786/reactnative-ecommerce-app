@@ -16,7 +16,7 @@ export default function AccountStackNavigator() {
       <Stack.Screen
         name='Orders'
         component={OrderScreen}
-        options={{ headerRight: () => <HeaderCartButton /> }}
+        options={{ title: 'My Orders', headerRight: () => <HeaderCartButton /> }}
       />
     </Stack.Navigator>
   )
