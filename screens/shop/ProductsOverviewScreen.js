@@ -30,16 +30,11 @@ function ProductsOverviewScreen({ navigation }) {
           >
             <ProductPreview
               product={itemData.item}
+              onIconPress={() => dispatch(addToCart(itemData.item))}
               onPress={() =>
                 navigation.navigate('ProductsDetails', { productId: itemData.item.id })
               }
-            >
-              <Button
-                title='add'
-                color={Colors.accent}
-                onPress={() => dispatch(addToCart(itemData.item))}
-              />
-            </ProductPreview>
+            ></ProductPreview>
           </View>
         )}
       />
