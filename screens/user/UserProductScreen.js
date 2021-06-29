@@ -10,7 +10,7 @@ function UserProductScreen({ navigation }) {
   const currentUserProducts = useSelector((state) => state.product.avalableProducts.filter((prod) => prod.uid === uid))
 
   return (
-    <View style={{ paddingBottom: 0 }}>
+    <View style={{ flex: 1 }}>
       <FlatList
         style={{ paddingHorizontal: 12 }}
         data={currentUserProducts}

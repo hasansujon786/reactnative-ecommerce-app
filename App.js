@@ -13,7 +13,7 @@ export default function App() {
   const theme = extendTheme({
     colors: {
       accent: '#22C55E',
-      secendary: '#FF7465',
+      secondary: '#FF7465',
     },
   })
 
@@ -25,3 +25,4 @@ export default function App() {
     </NativeBaseProvider>
   )
 }
+

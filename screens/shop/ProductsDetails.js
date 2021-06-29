@@ -16,7 +16,11 @@ export function CustomHeader({ navigation }) {
           icon={<Icon size='sm' name='chevron-back' />}
         />
         {/* <IconButton bg='white' icon={<Icon size='sm' name='ellipsis-vertical' />} /> */}
-        <IconButton bg='white' icon={<Icon size='sm' name='cart-outline' />} />
+        <IconButton
+          onPress={() => navigation.navigate('Cart')}
+          bg='white'
+          icon={<Icon size='sm' name='cart-outline' />}
+        />
       </HStack>
     </Box>
   )
@@ -65,8 +69,14 @@ function ProductsDetails({ navigation, route }) {
               </HStack>
             </Stack>
             <HStack space={2}>
-              <IconButton bg='white' icon={<Icon color='red.500' size='sm' name='heart' />} />
-              <IconButton bg='white' icon={<Icon color='red.500' size='sm' name='share' />} />
+              <IconButton
+                bg='white'
+                icon={<Icon color='blueGray.500' size='sm' name='heart-outline' />}
+              />
+              <IconButton
+                bg='white'
+                icon={<Icon color='blueGray.500' size='sm' name='share-social-outline' />}
+              />
             </HStack>
           </HStack>
 

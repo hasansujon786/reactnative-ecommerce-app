@@ -1,44 +1,57 @@
+import { Box, Center, Checkbox, Heading, HStack, Image, Stack, Text } from 'native-base'
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+import Icon from './ui/Icon'
+import IconButton from './ui/IconButton'
 
-function CartItem({ item, onSelect, onRemove }) {
+function CartItem({ item, onSelect, onRemove, ...props }) {
   return (
-    <View style={[styles.container, { backgroundColor: 'white' }]}>
-      <TouchableOpacity onPress={onSelect}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: item.imageUrl,
-          }}
-        />
-      </TouchableOpacity>
-      <View style={{ padding: 8 }}>
-        <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.productTitle}</Text>
-        <Text style={{ fontSize: 14 }}>{item.quantity}pc</Text>
-        <Text style={{ fontWeight: 'bold', marginTop: 4, fontSize: 18 }}>${item.productPrice}</Text>
-      </View>
-      <View style={styles.controls}>
-        <Button title='Remove' onPress={onRemove} />
-      </View>
-    </View>
+    <Box px={2} {...props}>
+      <HStack justifyContent=''>
+        <Center mr={4}>
+          <Checkbox rounded='lg' colorScheme='green' aria-label='cart chekbox' />
+        </Center>
+        <TouchableOpacity onPress={onSelect}>
+          <Image
+            height={90}
+            width={90}
+            resizeMode='cover'
+            rounded='xl'
+            alt={item.productTitle}
+            source={{
+              uri: item.imageUrl,
+            }}
+          />
+        </TouchableOpacity>
+
+        <Stack space={1} ml={4} py={1} flex={1} justifyContent='space-between'>
+          <Heading color='blueGray.700' noOfLines={2} size='sm' fontWeight='normal'>
+            {item.productTitle}
+          </Heading>
+          <Heading color='accent' size='md' fontWeight='bold'>
+            {item.productPrice.toFixed(2)}
+          </Heading>
+        </Stack>
+
+        <HStack justifyContent='center' alignItems='center'>
+          <IconButton
+            onPress={onRemove}
+            variant='ghost'
+            colorScheme='light'
+            icon={<Icon color='blueGray.500' name='remove-outline' size='sm' />}
+          />
+          <Text fontWeight='bold' fontSize='lg'>
+            {item.quantity}
+          </Text>
+          <IconButton
+            variant='ghost'
+            colorScheme='light'
+            icon={<Icon color='secondary' name='add-outline' size='sm' />}
+          />
+        </HStack>
+      </HStack>
+    </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    backgroundColor: '#ddd',
-    width: '100%',
-    borderBottomWidth: 2,
-    borderColor: '#ddd',
-    height: 120,
-  },
-  image: {
-    width: 150,
-    height: '100%',
-    // resizeMode: 'cover',
-  },
-  controls: {},
-})
 
 export default CartItem
