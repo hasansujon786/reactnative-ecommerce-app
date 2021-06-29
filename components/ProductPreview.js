@@ -1,15 +1,10 @@
-import { Ionicons } from '@expo/vector-icons'
-import { Box, Button, Heading, Icon, Image, Stack } from 'native-base'
+import { Box, Heading, Image, Stack } from 'native-base'
 import React from 'react'
 import { Platform, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
+import Icon from './ui/Icon'
+import IconButton from './ui/IconButton'
 
-function ProductPreview({
-  product,
-  children,
-  onIconPress,
-  iconName = 'ios-cart-outline',
-  ...props
-}) {
+function ProductPreview({ product, children, onIconPress, iconName = 'heart', ...props }) {
   const NativeFeadback = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
   return (
     <NativeFeadback useForeground {...props}>
@@ -34,20 +29,14 @@ function ProductPreview({
           </Heading>
         </Stack>
         {onIconPress && (
-          <Button
-            width={10}
-            height={10}
+          <IconButton
             position='absolute'
             top={1}
             right={1.5}
-            borderRadius='pill'
-            shadow={1}
-            bg='white'
-            colorScheme='dark'
             onPress={onIconPress}
-          >
-            <Icon color='blueGray.700' size='sm' as={<Ionicons name={iconName} />} />
-          </Button>
+            bg='white'
+            icon={<Icon size='sm' name={iconName} color='red.500' />}
+          />
         )}
       </Box>
     </NativeFeadback>

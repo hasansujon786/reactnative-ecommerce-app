@@ -12,7 +12,8 @@ export default function App() {
 
   const theme = extendTheme({
     colors: {
-      accent: '#FF7465',
+      accent: '#22C55E',
+      secendary: '#FF7465',
     },
   })
 

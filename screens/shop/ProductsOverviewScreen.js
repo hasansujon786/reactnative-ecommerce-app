@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { Button, FlatList, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ProductPreview from '../../components/ProductPreview'
-import { Colors } from '../../constans/color'
 import { addToCart } from '../../store/actions/cart'
 import { fetchProduct } from '../../store/actions/product'
 
@@ -15,9 +14,10 @@ function ProductsOverviewScreen({ navigation }) {
   }, [])
 
   return (
-    <View style={{ paddingBottom: 0 }}>
+    <View style={{ flex: 1 }}>
       <FlatList
         style={{ paddingHorizontal: 12 }}
+        contentContainerStyle={{ marginBottom: 12 }}
         data={avalableProducts}
         numColumns={2}
         renderItem={(itemData) => (
