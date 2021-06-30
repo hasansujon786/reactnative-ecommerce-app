@@ -6,6 +6,7 @@ import { setAuthUser } from '../store/actions/auth'
 export default function useAuthUserListener() {
   const dispatch = useDispatch()
   const uid = useSelector((state) => state.auth.uid)
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn)
 
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
@@ -21,5 +22,5 @@ export default function useAuthUserListener() {
     return unsubscribeAuth
   }, [])
 
-  return { uid }
+  return { uid, isSignedIn }
 }

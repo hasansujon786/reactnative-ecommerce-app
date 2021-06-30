@@ -7,7 +7,7 @@ import IconButton from './ui/IconButton'
 function CartItem({ item, onSelect, onRemove, ...props }) {
   return (
     <Box px={2} {...props}>
-      <HStack justifyContent=''>
+      <HStack>
         <Center mr={4}>
           <Checkbox rounded='lg' colorScheme='green' aria-label='cart chekbox' />
         </Center>

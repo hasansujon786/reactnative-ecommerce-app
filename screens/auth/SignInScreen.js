@@ -25,7 +25,6 @@ function SignInScreen({ navigation }) {
       } else {
         await dispatch(signUpWithEmailPasswordName(userEmailState.value, serPWState.value, userNameState.value))
       }
-      navigation.navigate('Shop')
     } catch (error) {
       console.log(error)
       setIsLoading(false)

@@ -6,10 +6,7 @@ const Stack = createStackNavigator()
 export default function AuthStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name='SignIn'
-        component={SignInScreen}
-      />
+      <Stack.Screen name='SignIn' component={SignInScreen} />
     </Stack.Navigator>
   )
 }

@@ -1,4 +1,4 @@
-import { Box, Button, Heading, HStack, Image, Stack, Text } from 'native-base'
+import { Box, Center, Button, Heading, HStack, Image, Stack, Text } from 'native-base'
 import React from 'react'
 import { ScrollView, useWindowDimensions, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,18 +9,21 @@ import { addToCart } from '../../store/actions/cart'
 export function CustomHeader({ navigation }) {
   return (
     <Box zIndex={2} height='16' position='absolute' top={0} left={0} right={0}>
-      <HStack alignItems='center' justifyContent='space-between' px='4' py='2'>
+      <HStack alignItems='center' justifyContent='space-between' px='2' py='2'>
         <IconButton
-          bg='white'
+          bg='blueGray.300'
           onPress={navigation.goBack}
-          icon={<Icon size='sm' name='chevron-back' />}
+          icon={<Icon size='sm' name='arrow-back-outline' />}
         />
-        {/* <IconButton bg='white' icon={<Icon size='sm' name='ellipsis-vertical' />} /> */}
-        <IconButton
-          onPress={() => navigation.navigate('Cart')}
-          bg='white'
-          icon={<Icon size='sm' name='cart-outline' />}
-        />
+
+        <HStack space={2}>
+          <IconButton
+            onPress={() => navigation.navigate('Cart')}
+            bg='blueGray.300'
+            icon={<Icon size='sm' name='cart-outline' />}
+          />
+          <IconButton bg='blueGray.300' icon={<Icon size='sm' name='ellipsis-vertical' />} />
+        </HStack>
       </HStack>
     </Box>
   )
@@ -150,22 +153,26 @@ function ProductsDetails({ navigation, route }) {
         left={0}
         position='absolute'
       >
-        <HStack flex={1} px={4} alignItems='center' justifyContent='space-around'>
+        <HStack space={1} flex={1} px={4} alignItems='center' justifyContent='space-around'>
           <Button
             onPress={() => dispatch(addToCart(product))}
             colorScheme='green'
-            py='5'
-            px='6'
             borderRadius='pill'
             variant='ghost'
           >
-            <Icon name='cart' color='accent' />
+            <Center>
+              <Icon name='cart' size='sm' color='accent' />
+              <Text fontSize='sm' color='accent'>
+                Add to Cart
+              </Text>
+            </Center>
           </Button>
+
           <Button
             onPress={() => dispatch(addToCart(product))}
             colorScheme='green'
             color='white'
-            width='70%'
+            flex={1}
             rounded='pill'
             py={5}
           >
