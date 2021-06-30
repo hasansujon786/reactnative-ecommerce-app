@@ -4,11 +4,11 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import useAuthUserListener from '../hooks/useAuthUserListener'
-// import Playground from '../Playground'
 import ProductsDetails from '../screens/shop/ProductsDetails'
 import AccountStackNavigator from './AccountNavigator'
-import AdminStackNavigator from './AdminNavigator'
-import AuthNavigator from './AuthNavigator'
+import AuthStackNavigator from './AuthNavigator'
+import CartStackNavigator from './CartNavigator'
+import CategoryStackNavigator from './CategoryNavigator'
 import ShopStackNavigator from './ShopNavigator'
 
 const Tab = createBottomTabNavigator()
@@ -18,19 +18,24 @@ const tabScreenOptions = ({ route }) => ({
 
     switch (route.name) {
       case 'Shop':
-        iconName = focused ? 'home' : 'home-outline'
+        iconName = 'home'
         break
       case 'Account':
-        iconName = focused ? 'person' : 'person-outline'
+        iconName = 'person'
+        break
+      case 'Cart':
+        iconName = 'cart'
+        break
+      case 'Category':
+        iconName = 'apps'
         break
       case 'Admin':
-        iconName = focused ? 'clipboard' : 'clipboard-outline'
+        iconName = 'clipboard'
         break
       default:
-        iconName = focused ? 'reorder-two' : 'reorder-two-outline'
+        iconName = 'reorder-two'
     }
 
-    // You can return any component that you like here!
     return <Ionicons name={iconName} size={size} color={color} />
   },
 })
@@ -46,15 +51,13 @@ function RootNavigator() {
     <Tab.Navigator
       initialRouteName='Shop'
       screenOptions={tabScreenOptions}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}
+      tabBarOptions={{ activeTintColor: '#22C55E', inactiveTintColor: 'gray' }}
     >
       <Tab.Screen name='Shop' component={ShopStackNavigator} />
-      {uid && <Tab.Screen name='Admin' component={AdminStackNavigator} />}
+      <Tab.Screen name='Category' component={CategoryStackNavigator} />
+      <Tab.Screen name='Cart' component={CartStackNavigator} />
       {uid && <Tab.Screen name='Account' component={AccountStackNavigator} />}
-      {!uid && <Tab.Screen name='Account' component={AuthNavigator} />}
+      {!uid && <Tab.Screen name='Account' component={AuthStackNavigator} />}
     </Tab.Navigator>
   )
 }
@@ -64,7 +67,6 @@ export default () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name='Playground' component={Playground} options={{ headerShown: false }} /> */}
         <Stack.Screen name='Root' component={RootNavigator} options={{ headerShown: false }} />
         <Stack.Screen
           name='ProductsDetails'
