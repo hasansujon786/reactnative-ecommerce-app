@@ -11,7 +11,11 @@ export default function ShopStackNavigator() {
       <Stack.Screen
         name='ProductsOverview'
         component={ProductsOverviewScreen}
-        options={{ title: 'All Products', headerRight: () => <HeaderCartButton /> }}
+        options={{
+          title: 'All Products',
+          headerShown: false,
+          headerRight: () => <HeaderCartButton />,
+        }}
       />
       <Stack.Screen name='Home' component={HomeScreen} />
     </Stack.Navigator>

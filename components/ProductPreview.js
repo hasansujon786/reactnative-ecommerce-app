@@ -1,13 +1,12 @@
 import { Box, Heading, Image, Stack } from 'native-base'
 import React from 'react'
-import { Platform, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import Icon from './ui/Icon'
 import IconButton from './ui/IconButton'
 
 function ProductPreview({ product, children, onIconPress, iconName = 'heart', ...props }) {
-  const NativeFeadback = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
   return (
-    <NativeFeadback useForeground {...props}>
+    <TouchableOpacity useForeground {...props}>
       <Box maxWidth='100%'>
         <Box shadow={1} rounded='lg'>
           <Image
@@ -39,7 +38,7 @@ function ProductPreview({ product, children, onIconPress, iconName = 'heart', ..
           />
         )}
       </Box>
-    </NativeFeadback>
+    </TouchableOpacity>
   )
 }
 

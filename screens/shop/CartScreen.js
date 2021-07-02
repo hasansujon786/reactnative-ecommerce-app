@@ -22,7 +22,7 @@ export default function Cart({ navigation }) {
         contentContainerStyle={{ paddingBottom: 20 }}
         data={cartItems}
         renderItem={(itemData) => (
-          <Box mt={8} px={2}>
+          <Box mt={6} px={2}>
             <CartItem
               onSelect={() =>
                 navigation.navigate('ProductsDetails', { productId: itemData.item.id })
