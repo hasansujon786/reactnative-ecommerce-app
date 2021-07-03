@@ -1,7 +1,5 @@
 export const Colors = {
-  accent: '#FF7465',
-  black: '#333333',
-  softBlack: '#555',
-  white: '#ffffff',
-  danger: 'red',
+  accent: '#22C55E',
+  secondary: '#FF7465',
+  defaultBackground: '#FDFDFE'
 }

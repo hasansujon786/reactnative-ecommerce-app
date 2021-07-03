@@ -2,6 +2,7 @@ import { extendTheme, NativeBaseProvider } from 'native-base'
 import React from 'react'
 import { LogBox, Platform } from 'react-native'
 import { Provider } from 'react-redux'
+import { Colors } from './constans/color'
 import RootNavigator from './navigators/RootNavigator'
 import store from './store'
 
@@ -12,8 +13,7 @@ export default function App() {
 
   const theme = extendTheme({
     colors: {
-      accent: '#22C55E',
-      secondary: '#FF7465',
+      ...Colors,
     },
   })
 
@@ -25,4 +25,3 @@ export default function App() {
     </NativeBaseProvider>
   )
 }
-

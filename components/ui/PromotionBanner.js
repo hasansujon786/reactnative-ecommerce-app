@@ -13,6 +13,7 @@ function PromotionBanner(props) {
         </Text>
       </Box>
       <Image
+        alt='banner add'
         style={{ width: 300, height: 165, resizeMode: 'cover' }}
         source={require('../../assets/rocket.png')}
       />

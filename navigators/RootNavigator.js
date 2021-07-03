@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NavigationContainer } from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import useAuthUserListener from '../hooks/useAuthUserListener'
@@ -12,10 +12,11 @@ import AuthStackNavigator from './AuthNavigator'
 import CartStackNavigator from './CartNavigator'
 import CategoryStackNavigator from './CategoryNavigator'
 import ShopStackNavigator from './ShopNavigator'
+import { Colors } from '../constans/color'
 
 const Tab = createBottomTabNavigator()
 const tabScreenOptions = ({ route }) => ({
-  tabBarIcon: ({ focused, color, size }) => {
+  tabBarIcon: ({ color, size }) => {
     let iconName
 
     switch (route.name) {
@@ -72,8 +73,16 @@ const Stack = createStackNavigator()
 export default () => {
   const { isSignedIn } = useAuthUserListener()
 
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: Colors.defaultBackground,
+    },
+  }
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator>
         <Stack.Screen name='Root' component={RootNavigator} options={{ headerShown: false }} />
         <Stack.Screen
