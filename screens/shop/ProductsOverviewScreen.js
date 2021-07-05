@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react'
-import {FlatList, ScrollView, View} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useEffect } from 'react'
+import { FlatList, ScrollView, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import ProductPreview from '../../components/ProductPreview'
 import PromotionBanner from '../../components/ui/PromotionBanner'
-import SearchBar from '../../components/ui/SearchBar'
 // import { addToCart } from '../../store/actions/cart'
-import {fetchProduct} from '../../store/actions/product'
+import { fetchProduct } from '../../store/actions/product'
 
 function ProductsOverviewScreen({ navigation }) {
   const dispatch = useDispatch()
@@ -18,10 +17,9 @@ function ProductsOverviewScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
-        <SearchBar />
-        <PromotionBanner  mx={4} mb={2}/>
+        <PromotionBanner mx={4} mt={1} />
         <FlatList
-          contentContainerStyle={{ marginVertical: 12,paddingHorizontal: 12 }}
+          contentContainerStyle={{ marginVertical: 12, paddingHorizontal: 12 }}
           data={avalableProducts}
           numColumns={2}
           renderItem={(itemData) => (

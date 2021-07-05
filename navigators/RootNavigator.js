@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { Colors } from '../constans/color'
 import useAuthUserListener from '../hooks/useAuthUserListener'
 import SignInScreen from '../screens/auth/SignInScreen'
 import ProductsDetails from '../screens/shop/ProductsDetails'
@@ -12,11 +13,10 @@ import AuthStackNavigator from './AuthNavigator'
 import CartStackNavigator from './CartNavigator'
 import CategoryStackNavigator from './CategoryNavigator'
 import ShopStackNavigator from './ShopNavigator'
-import { Colors } from '../constans/color'
 
 const Tab = createBottomTabNavigator()
 const tabScreenOptions = ({ route }) => ({
-  tabBarIcon: ({ color, size }) => {
+  tabBarIcon: ({ color }) => {
     let iconName
 
     switch (route.name) {
@@ -39,7 +39,7 @@ const tabScreenOptions = ({ route }) => ({
         iconName = 'reorder-two'
     }
 
-    return <Ionicons name={iconName} size={size} color={color} />
+    return <Ionicons name={iconName} size={22} color={color} />
   },
 })
 
@@ -50,7 +50,7 @@ function RootNavigator() {
     <Tab.Navigator
       initialRouteName='Shop'
       screenOptions={tabScreenOptions}
-      tabBarOptions={{ activeTintColor: '#22C55E', inactiveTintColor: 'gray' }}
+      tabBarOptions={{ activeTintColor: Colors.accent, inactiveTintColor: 'gray' }}
     >
       <Tab.Screen name='Shop' component={ShopStackNavigator} />
       <Tab.Screen name='Category' component={CategoryStackNavigator} />
@@ -73,16 +73,8 @@ const Stack = createStackNavigator()
 export default () => {
   const { isSignedIn } = useAuthUserListener()
 
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: Colors.defaultBackground,
-    },
-  }
-
   return (
-    <NavigationContainer theme={MyTheme}>
+    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name='Root' component={RootNavigator} options={{ headerShown: false }} />
         <Stack.Screen
