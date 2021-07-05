@@ -12,7 +12,7 @@ export default function AccountStackNavigator() {
       <Stack.Screen
         name='AccontDashboard'
         component={AccountDashboardScreen}
-        options={{ title: 'Account', headerRight: () => <HeaderAccountButton /> }}
+        options={{ title: '', headerRight: () => <HeaderAccountButton />, headerTransparent: true, }}
       />
       <Stack.Screen
         name='Orders'
