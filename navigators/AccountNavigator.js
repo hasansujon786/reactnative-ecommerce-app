@@ -22,7 +22,7 @@ export default function AccountStackNavigator() {
       <Stack.Screen
         name='Settings'
         component={SettingsScreen}
-        options={{ title: 'Settings', headerRight: () => <HeaderAccountButton /> }}
+        options={{ title: 'Settings' }}
       />
     </Stack.Navigator>
   )

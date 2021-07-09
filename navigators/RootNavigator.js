@@ -3,10 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Colors } from '../constans/color'
 import useAuthUserListener from '../hooks/useAuthUserListener'
-import SignInScreen from '../screens/auth/SignInScreen'
+import Playground from '../Playground'
 import ProductsDetails from '../screens/shop/ProductsDetails'
 import AccountStackNavigator from './AccountNavigator'
 import AuthStackNavigator from './AuthNavigator'
@@ -44,7 +43,7 @@ const tabScreenOptions = ({ route }) => ({
 })
 
 function RootNavigator() {
-  const isSignedIn = useSelector((state) => state.auth.isSignedIn)
+  const { isSignedIn } = useAuthUserListener()
 
   return (
     <Tab.Navigator
@@ -71,8 +70,6 @@ function RootNavigator() {
 
 const Stack = createStackNavigator()
 export default () => {
-  const { isSignedIn } = useAuthUserListener()
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -82,9 +79,6 @@ export default () => {
           component={ProductsDetails}
           options={{ headerShown: false }}
         />
-        {!isSignedIn && (
-          <Stack.Screen name='SignIn' component={SignInScreen} options={{ headerShown: false }} />
-        )}
       </Stack.Navigator>
     </NavigationContainer>
   )

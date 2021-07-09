@@ -1,33 +1,25 @@
+import { Box, Button, FormControl, Heading, HStack, Input, Link, Text, VStack } from 'native-base'
 import React, { useState } from 'react'
-import { Button, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Spinner from '../../components/ui/Spinner'
-import TextInput from '../../components/ui/TextInput'
-import { Colors } from '../../constans/color'
 import { useInputState } from '../../hooks'
-import { signInWithEmailAndPassword, signUpWithEmailPasswordName } from '../../store/actions/auth'
+import { signInWithEmailAndPassword } from '../../store/actions/auth'
 
 function SignInScreen({ navigation }) {
   const dispatch = useDispatch()
 
-  const [isSingIn, setIsSingIn] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
-  // From state
-  const userNameState = useInputState('')
+  // Form state
   const userEmailState = useInputState('sujon@gmail.com')
   const userPWState = useInputState('123456')
 
-  const handleSubmit = async () => {
+  const handleSignIn = async () => {
     setIsLoading(true)
     try {
-      if (isSingIn) {
-        await dispatch(signInWithEmailAndPassword(userEmailState.value, userPWState.value))
-      } else {
-        await dispatch(signUpWithEmailPasswordName(userEmailState.value, serPWState.value, userNameState.value))
-      }
+      await dispatch(signInWithEmailAndPassword(userEmailState.value, userPWState.value))
     } catch (error) {
-      console.log(error)
       setIsLoading(false)
+      console.log(error)
     }
   }
 
@@ -36,25 +28,77 @@ function SignInScreen({ navigation }) {
   }
 
   return (
-    <View style={{ padding: 12 }}>
-      {!isSingIn && <TextInput name='Full name' {...userNameState} />}
-      <TextInput name='Email' {...userEmailState} />
-      <TextInput name='Password' {...userPWState} />
-      <View style={{ marginTop: 16 }}>
-        <Button
-          color={Colors.accent}
-          onPress={handleSubmit}
-          title={isSingIn ? 'SingIn' : 'SingUp'}
-        />
-      </View>
-      <View style={{ marginTop: 16 }}>
-        <Button
-          onPress={() => setIsSingIn((bool) => !bool)}
-          title={`Switch to ${isSingIn ? 'SingUp' : 'SingIn'}`}
-        />
-      </View>
-    </View>
+    <Box flex={1} p={2} w='90%' mx='auto'>
+      <Heading textAlign='center' size='lg' color='accent'>
+        Fashion Wear
+      </Heading>
+      <Heading mt={1} textAlign='center' color='muted.400' size='xs'>
+        Sign in to continue
+      </Heading>
+
+      <VStack space={2} mt={5}>
+        <FormControl>
+          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
+            Email ID
+          </FormControl.Label>
+          <Input {...userEmailState} _focus={{ borderColor: 'accent' }} />
+        </FormControl>
+
+        <FormControl mb={5}>
+          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
+            Password
+          </FormControl.Label>
+          <Input {...userPWState} _focus={{ borderColor: 'accent' }} type='password' />
+          <Link
+            _text={{ fontSize: 'xs', fontWeight: '700', color: 'accent' }}
+            alignSelf='flex-end'
+            mt={1}
+          >
+            Forget Password?
+          </Link>
+        </FormControl>
+
+        <VStack space={3}>
+          <Button onPress={handleSignIn} colorScheme='green' _text={{ color: 'white' }}>
+            Login
+          </Button>
+
+          <HStack space={2} justifyContent='center'>
+            <Text fontSize='sm' color='muted.700' fontWeight={400}>
+              I'm a new user.
+            </Text>
+            <Link
+              onPress={() => navigation.navigate('Register')}
+              _text={{ color: 'blue.500', bold: true, fontSize: 'sm' }}
+            >
+              Sign Up
+            </Link>
+          </HStack>
+        </VStack>
+      </VStack>
+    </Box>
   )
 }
 
 export default SignInScreen
+
+// {/* <HStack justifyContent='center' alignItem='center'> */}
+// {/*   <IconButton */}
+// {/*     variant='unstyled' */}
+// {/*     startIcon={ */}
+// {/*       <Icon as={<MaterialCommunityIcons name='facebook' />} color='muted.700' size='sm' /> */}
+// {/*     } */}
+// {/*   /> */}
+// {/*   <IconButton */}
+// {/*     variant='unstyled' */}
+// {/*     startIcon={ */}
+// {/*       <Icon as={<MaterialCommunityIcons name='google' />} color='muted.700' size='sm' /> */}
+// {/*     } */}
+// {/*   /> */}
+// {/*   <IconButton */}
+// {/*     variant='unstyled' */}
+// {/*     startIcon={ */}
+// {/*       <Icon as={<MaterialCommunityIcons name='github' />} color='muted.700' size='sm' /> */}
+// {/*     } */}
+// {/*   /> */}
+// {/* </HStack> */}

@@ -10,7 +10,7 @@ function IconTextButton({
   direction = 'column',
   iconSize = 'sm',
   space = 0,
-  color = 'gray.600',
+  color = 'gray.500',
 }) {
   const Wrapper = direction === 'column' ? Stack : HStack
   return (

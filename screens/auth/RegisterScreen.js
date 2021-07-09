@@ -1,37 +1,89 @@
-import React from 'react'
-import { Button, View } from 'react-native'
-import TextInput from '../../components/ui/TextInput'
-import { registerWithEmail } from '../../firebase/firebase'
+import { Box, Button, FormControl, Heading, HStack, Input, Link, Text, VStack } from 'native-base'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import Spinner from '../../components/ui/Spinner'
 import { useInputState } from '../../hooks'
+import { signUpWithEmailPasswordName } from '../../store/actions/auth'
 
 function RegisterScreen({ navigation }) {
-  const userNameState = useInputState('')
-  const userEmailState = useInputState('')
-  const userPWState = useInputState('')
+  const dispatch = useDispatch()
 
-  const handleUserRegisterSubmit = async () => {
+  const [isLoading, setIsLoading] = useState(false)
+  // Form state
+  const userNameState = useInputState('')
+  const userEmailState = useInputState('sujon@gmail.com')
+  const userPWState = useInputState('123456')
+  const userPWConfiremState = useInputState('123456')
+
+  const handleSignup = async () => {
+    setIsLoading(true)
     try {
-      const response = await registerWithEmail(userEmailState.value, userPWState.value)
-      await response.user.updateProfile({
-        displayName: userNameState.value,
-      })
+      await dispatch(signUpWithEmailPasswordName(userEmailState.value, serPWState.value, userNameState.value))
     } catch (error) {
+      setIsLoading(false)
       console.log(error)
     }
   }
 
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return (
-    <View style={{ padding: 12 }}>
-      <TextInput name='Full name' {...userNameState} />
-      <TextInput name='Email' {...userEmailState} />
-      <TextInput name='Password' {...userPWState} />
-      <View style={{ marginTop: 16 }}>
-        <Button onPress={handleUserRegisterSubmit} title='Create a new accout' />
-      </View>
-      <View style={{ marginTop: 16 }}>
-        <Button onPress={() => navigation.navigate('SignIn')} title='Login' />
-      </View>
-    </View>
+    <Box flex={1} p={2} w='90%' mx='auto'>
+      <Heading textAlign='center' size='lg' color='accent'>
+        Fashion Wear
+      </Heading>
+      <Heading mt={1} textAlign='center' color='muted.400' size='xs'>
+        Create a new account
+      </Heading>
+
+      <VStack space={2} mt={5}>
+        <FormControl>
+          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
+            Your Name
+          </FormControl.Label>
+          <Input {...userNameState} _focus={{ borderColor: 'accent' }} />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
+            Email ID
+          </FormControl.Label>
+          <Input {...userEmailState} _focus={{ borderColor: 'accent' }} />
+        </FormControl>
+
+        <FormControl mb={5}>
+          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
+            Password
+          </FormControl.Label>
+          <Input {...userPWState} _focus={{ borderColor: 'accent' }} type='password' />
+        </FormControl>
+        <FormControl mb={5}>
+          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
+            Confirem Password
+          </FormControl.Label>
+          <Input {...userPWState} _focus={{ borderColor: 'accent' }} type='password' />
+        </FormControl>
+
+        <VStack space={3}>
+          <Button onPress={handleSignup} colorScheme='green' _text={{ color: 'white' }}>
+            Sign Up
+          </Button>
+
+          <HStack space={2} justifyContent='center'>
+            <Text fontSize='sm' color='muted.700' fontWeight={400}>
+              I already have an account
+            </Text>
+            <Link
+              onPress={() => navigation.navigate('SignIn')}
+              _text={{ color: 'blue.500', bold: true, fontSize: 'sm' }}
+            >
+              Sign In
+            </Link>
+          </HStack>
+        </VStack>
+      </VStack>
+    </Box>
   )
 }
 
