@@ -1,32 +1,32 @@
-import { Box, Button, FormControl, Heading, HStack, Input, Link, Text, VStack } from 'native-base'
+import { Box, Button, Heading, HStack, Link, Text, VStack } from 'native-base'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import Spinner from '../../components/ui/Spinner'
+import FromInput from '../../components/ui/FormInput'
+import FullPageSpinner from '../../components/ui/FullPageSpinner'
+import { registerWithEmail } from '../../firebase/firebase'
 import { useInputState } from '../../hooks'
-import { signUpWithEmailPasswordName } from '../../store/actions/auth'
 
 function RegisterScreen({ navigation }) {
-  const dispatch = useDispatch()
-
   const [isLoading, setIsLoading] = useState(false)
   // Form state
-  const userNameState = useInputState('')
-  const userEmailState = useInputState('sujon@gmail.com')
+  const userNameState = useInputState('test user')
+  const userEmailState = useInputState('testuser@gmail.com')
   const userPWState = useInputState('123456')
   const userPWConfiremState = useInputState('123456')
 
   const handleSignup = async () => {
     setIsLoading(true)
     try {
-      await dispatch(signUpWithEmailPasswordName(userEmailState.value, serPWState.value, userNameState.value))
+      const email = userEmailState.value
+      const password = userPWState.value
+      await registerWithEmail(email, password)
     } catch (error) {
       setIsLoading(false)
-      console.log(error)
+      console.log('RegisterScreen', error)
     }
   }
 
   if (isLoading) {
-    return <Spinner />
+    return <FullPageSpinner />
   }
 
   return (
@@ -39,31 +39,10 @@ function RegisterScreen({ navigation }) {
       </Heading>
 
       <VStack space={2} mt={5}>
-        <FormControl>
-          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-            Your Name
-          </FormControl.Label>
-          <Input {...userNameState} _focus={{ borderColor: 'accent' }} />
-        </FormControl>
-        <FormControl>
-          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-            Email ID
-          </FormControl.Label>
-          <Input {...userEmailState} _focus={{ borderColor: 'accent' }} />
-        </FormControl>
-
-        <FormControl mb={5}>
-          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-            Password
-          </FormControl.Label>
-          <Input {...userPWState} _focus={{ borderColor: 'accent' }} type='password' />
-        </FormControl>
-        <FormControl mb={5}>
-          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-            Confirem Password
-          </FormControl.Label>
-          <Input {...userPWState} _focus={{ borderColor: 'accent' }} type='password' />
-        </FormControl>
+        <FromInput label='Your Name' {...userNameState} />
+        <FromInput label='Email ID' {...userEmailState} />
+        <FromInput label='Password' {...userPWState} type='password' />
+        <FromInput label='Confirem Password' {...userPWConfiremState} type='password' />
 
         <VStack space={3}>
           <Button onPress={handleSignup} colorScheme='green' _text={{ color: 'white' }}>

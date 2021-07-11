@@ -1,13 +1,11 @@
-import { Box, Button, FormControl, Heading, HStack, Input, Link, Text, VStack } from 'native-base'
+import { Box, Button, Heading, HStack, Link, Text, VStack } from 'native-base'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import Spinner from '../../components/ui/Spinner'
+import FromInput from '../../components/ui/FormInput'
+import FullPageSpinner from '../../components/ui/FullPageSpinner'
+import { loginWithEmail } from '../../firebase/firebase'
 import { useInputState } from '../../hooks'
-import { signInWithEmailAndPassword } from '../../store/actions/auth'
 
 function SignInScreen({ navigation }) {
-  const dispatch = useDispatch()
-
   const [isLoading, setIsLoading] = useState(false)
   // Form state
   const userEmailState = useInputState('sujon@gmail.com')
@@ -16,15 +14,17 @@ function SignInScreen({ navigation }) {
   const handleSignIn = async () => {
     setIsLoading(true)
     try {
-      await dispatch(signInWithEmailAndPassword(userEmailState.value, userPWState.value))
+      const email = userEmailState.value
+      const password = userPWState.value
+      await loginWithEmail(email, password)
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading('SignInScreen', false)
       console.log(error)
     }
   }
 
   if (isLoading) {
-    return <Spinner />
+    return <FullPageSpinner />
   }
 
   return (
@@ -37,18 +37,8 @@ function SignInScreen({ navigation }) {
       </Heading>
 
       <VStack space={2} mt={5}>
-        <FormControl>
-          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-            Email ID
-          </FormControl.Label>
-          <Input {...userEmailState} _focus={{ borderColor: 'accent' }} />
-        </FormControl>
-
-        <FormControl mb={5}>
-          <FormControl.Label _text={{ color: 'muted.700', fontSize: 'sm', fontWeight: 600 }}>
-            Password
-          </FormControl.Label>
-          <Input {...userPWState} _focus={{ borderColor: 'accent' }} type='password' />
+        <FromInput label='Email ID' {...userEmailState} />
+        <FromInput label='Password' {...userPWState}>
           <Link
             _text={{ fontSize: 'xs', fontWeight: '700', color: 'accent' }}
             alignSelf='flex-end'
@@ -56,9 +46,9 @@ function SignInScreen({ navigation }) {
           >
             Forget Password?
           </Link>
-        </FormControl>
+        </FromInput>
 
-        <VStack space={3}>
+        <VStack mt={4} space={3}>
           <Button onPress={handleSignIn} colorScheme='green' _text={{ color: 'white' }}>
             Login
           </Button>

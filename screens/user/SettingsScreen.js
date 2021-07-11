@@ -1,14 +1,26 @@
-import React from 'react'
+import { Box, Divider, Stack, Text } from 'native-base'
+import React, { useState } from 'react'
 import { Pressable } from 'react-native'
-import { Box, Link, Stack, Text, Divider } from 'native-base'
-import { useDispatch } from 'react-redux'
-import { signOut } from '../../store/actions/auth'
+import FullPageSpinner from '../../components/ui/FullPageSpinner'
+import { logout } from '../../firebase/firebase'
 
 function SettingsScreen() {
-  const dispatch = useDispatch()
-  const handleSignOut = () => {
-    dispatch(signOut())
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSignOut = async () => {
+    setIsLoading(true)
+    try {
+      await logout()
+    } catch (err) {
+      setIsLoading(false)
+      console.log('error', err)
+    }
   }
+
+  if (isLoading) {
+    return <FullPageSpinner />
+  }
+
   return (
     <Box>
       <Stack space={3}>
