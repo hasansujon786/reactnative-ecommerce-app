@@ -11,10 +11,11 @@ function IconTextButton({
   iconSize = 'sm',
   space = 0,
   color = 'gray.500',
+  ...props
 }) {
   const Wrapper = direction === 'column' ? Stack : HStack
   return (
-    <TouchableOpacity style={{ flex: 1 }}>
+    <TouchableOpacity {...props} style={{ flex: 1 }}>
       <Wrapper space={space} flex={1} rounded='xl' alignItems='center' justifyContent='center'>
         <Icon color={color} size={iconSize} name={iconName} />
         <Text fontSize='sm' color={color}>
@@ -75,42 +76,36 @@ function AccountDashboardScreen({ navigation }) {
       <Divider />
 
       <Box py={1} px={4}>
-        <Text fontSize='xs' fontWeight='bold' color='gray.400'>
-          MY ORDERS
+        <Text fontSize='xs' textTransform='uppercase' fontWeight='bold' color='muted.400'>
+          My services
         </Text>
       </Box>
       <Stack bg='white'>
         <HStack space={3} height={24}>
-          <IconTextButton iconSize='md' iconName='car' title='somethint' />
-          <IconTextButton iconSize='md' iconName='cart' title='somethint' />
-          <IconTextButton iconSize='md' iconName='home' title='somethint' />
+          <IconTextButton iconSize='md' iconName='bus-outline' title='To Receive' />
+          <IconTextButton iconSize='md' iconName='archive-outline' title='To Ship' />
+          <IconTextButton iconSize='md' iconName='card-outline' title='Paymats' />
         </HStack>
       </Stack>
       <Stack bg='white'>
         <HStack space={3} height={24}>
-          <IconTextButton iconSize='md' iconName='cart' title='somethint' />
-          <IconTextButton iconSize='md' iconName='car' title='somethint' />
-          <IconTextButton iconSize='md' iconName='home' title='somethint' />
+          <IconTextButton iconSize='md' iconName='chatbox-ellipses-outline' title='Reviews' />
+          <IconTextButton iconSize='md' iconName='repeat-outline' title='My Returns' />
+          <IconTextButton iconSize='md' iconName='help-circle-outline' title='Help' />
         </HStack>
       </Stack>
       <Box py={1} px={4}>
-        <Text fontSize='xs' fontWeight='bold' color='gray.400'>
-          MY ORDERS
+        <Text fontSize='xs' textTransform='uppercase' fontWeight='bold' color='muted.400'>
+          My store
         </Text>
       </Box>
       <Stack bg='white'>
         <HStack space={3} height={24}>
-          <IconTextButton iconSize='md' iconName='car' title='somethint' />
-          <IconTextButton iconSize='md' iconName='cart' title='somethint' />
-          <IconTextButton iconSize='md' iconName='home' title='somethint' />
+          <IconTextButton onPress={() => navigation.navigate('StoreProducts')} iconSize='md' iconName='albums-outline' title='Products' />
+          <IconTextButton onPress={() => navigation.navigate('StoreOrders')} iconSize='md' iconName='reader-outline' title='Orders' />
+          <IconTextButton iconSize='md' iconName='chatbubbles-outline' title='Messages' />
         </HStack>
       </Stack>
-      {/* <View style={{ marginTop: 20 }}> */}
-      {/*   <Button title='My orders' onPress={() => navigation.navigate('Orders')} /> */}
-      {/* </View> */}
-      {/* <View style={{ marginTop: 20 }}> */}
-      {/*   <Button color={Colors.danger} onPress={() => dispatch(signOut())} title='Logout' /> */}
-      {/* </View> */}
     </Box>
   )
 }

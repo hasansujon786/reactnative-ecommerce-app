@@ -16,7 +16,7 @@ export default function HeaderAccountButton() {
       <Item
         title='Settings'
         iconName='settings-outline'
-        onPress={() => navigation.navigate('Settings')}
+        onPress={() => navigation.navigate('AccontSettings')}
       />
     </HeaderButtons>
   )

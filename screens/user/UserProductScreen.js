@@ -19,7 +19,7 @@ function UserProductScreen({ navigation }) {
             <ProductPreview
               product={itemData.item}
               onPress={() =>
-                navigation.navigate('AdminEditProduct', { productId: itemData.item.id })
+                navigation.navigate('StoreEditProduct', { productId: itemData.item.id })
               }
             >
               <Button title='edit' onPress={() => dispatch(addToCart(itemData.item))} />
