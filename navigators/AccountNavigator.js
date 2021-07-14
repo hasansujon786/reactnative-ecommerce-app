@@ -16,7 +16,12 @@ export default function AccountStackNavigator() {
       <Stack.Screen
         name='AccontDashboard'
         component={AccountDashboardScreen}
-        options={{ title: '', headerRight: () => <HeaderAccountButton />, headerTransparent: true }}
+        options={{
+          title: 'Dashboard',
+          headerRight: () => <HeaderAccountButton />,
+          headerTransparent: true,
+          headerTintColor: 'rgba(0, 0, 0, 0)',
+        }}
       />
       <Stack.Screen
         name='AccontSettings'
