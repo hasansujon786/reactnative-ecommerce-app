@@ -16,7 +16,7 @@ export default function AuthStackNavigator() {
         options={{
           title: '',
           headerLeft: () => <HeaderSingInButtons />,
-          headerStyle: { backgroundColor: Colors.defaultBackground, elevation: 0 },
+          headerTransparent: true
         }}
       />
       <Stack.Screen
@@ -24,7 +24,7 @@ export default function AuthStackNavigator() {
         component={RegisterScreen}
         options={{
           title: '',
-          headerStyle: { backgroundColor: Colors.defaultBackground, elevation: 0 },
+          headerTransparent: true
         }}
       />
       <Stack.Screen

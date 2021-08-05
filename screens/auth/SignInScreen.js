@@ -1,4 +1,6 @@
 import { Box, Button, Heading, HStack, Link, Text, VStack } from 'native-base'
+import { ImageBackground } from 'react-native'
+import Icon from '../../components/ui/Icon'
 import React, { useState } from 'react'
 import FromInput from '../../components/ui/FormInput'
 import FullPageSpinner from '../../components/ui/FullPageSpinner'
@@ -28,45 +30,82 @@ function SignInScreen({ navigation }) {
   }
 
   return (
-    <Box flex={1} p={2} w='90%' mx='auto'>
-      <Heading textAlign='center' size='lg' color='accent'>
-        Fashion Wear
-      </Heading>
-      <Heading mt={1} textAlign='center' color='muted.400' size='xs'>
-        Sign in to continue
-      </Heading>
+    <ImageBackground style={{ flex: 1 }} source={require('../../assets/bg-man.png')}>
+      <Box flex={1} px={4} pb={12} >
+        <Heading mt={16} textAlign='center' size='3xl' color='white'>
+          Audio
+        </Heading>
+        <Heading textAlign='center' color='white' size='xs'>
+          The only truth is music.
+        </Heading>
 
-      <VStack space={2} mt={5}>
-        <FromInput label='Email ID' {...userEmailState} />
-        <FromInput label='Password' {...userPWState}>
-          <Link
-            _text={{ fontSize: 'xs', fontWeight: '700', color: 'accent' }}
-            alignSelf='flex-end'
-            mt={1}
-          >
-            Forget Password?
-          </Link>
-        </FromInput>
+        <Box flex={1} />
+        <VStack space={2} mt={5}>
+          <FromInput
+            borderColor='muted.300'
+            variant='filled'
+            placeholder='Email'
+            InputLeftElement={
+              <Icon
+                name='mail-outline'
+                size='sm'
+                ml={2}
+                _light={{
+                  color: 'gray.400',
+                }}
+              />
+            }
+            {...userEmailState}
+          />
+          <FromInput
+            borderColor='muted.300'
+            variant='filled'
+            placeholder='Password'
+            InputLeftElement={
+              <Icon
+                name='lock-closed-outline'
+                size='sm'
+                ml={2}
+                _light={{
+                  color: 'gray.400',
+                }}
+              />
+            }
+            {...userPWState}
+          />
 
-        <VStack mt={4} space={3}>
-          <Button onPress={handleSignIn} colorScheme='green' _text={{ color: 'white' }}>
-            Login
-          </Button>
-
-          <HStack space={2} justifyContent='center'>
-            <Text fontSize='sm' color='muted.700' fontWeight={400}>
-              I'm a new user.
-            </Text>
+          <VStack mt={5} space={6}>
             <Link
-              onPress={() => navigation.navigate('Register')}
-              _text={{ color: 'blue.500', bold: true, fontSize: 'sm' }}
+              _text={{ fontSize: 'md', fontWeight: '700', color: 'muted.300' }}
+              alignSelf='center'
             >
-              Sign Up
+              Forget Password
             </Link>
-          </HStack>
+            <Button
+              py={4}
+              onPress={handleSignIn}
+              colorScheme='green'
+              size='lg'
+              rounded={10}
+              _text={{ color: 'white', fontWeight: 'bold' }}>
+              Sign In
+            </Button>
+
+            <HStack space={2} justifyContent='center'>
+              <Text color='muted.300' fontWeight={400}>
+                Didn't have an account?
+              </Text>
+              <Link
+                onPress={() => navigation.navigate('Register')}
+                _text={{ color: 'accent', textDecoration: 'underline', bold: true }}
+              >
+                Sign Up here
+              </Link>
+            </HStack>
+          </VStack>
         </VStack>
-      </VStack>
-    </Box>
+      </Box>
+    </ImageBackground>
   )
 }
 

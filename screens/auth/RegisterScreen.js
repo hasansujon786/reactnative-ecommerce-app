@@ -1,5 +1,7 @@
 import { Box, Button, Heading, HStack, Link, Text, VStack } from 'native-base'
+import Icon from '../../components/ui/Icon'
 import React, { useState } from 'react'
+import { ImageBackground } from 'react-native'
 import FromInput from '../../components/ui/FormInput'
 import FullPageSpinner from '../../components/ui/FullPageSpinner'
 import { registerWithEmail } from '../../firebase/firebase'
@@ -8,10 +10,10 @@ import { useInputState } from '../../hooks'
 function RegisterScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(false)
   // Form state
-  const userNameState = useInputState('test user')
-  const userEmailState = useInputState('testuser@gmail.com')
-  const userPWState = useInputState('123456')
-  const userPWConfiremState = useInputState('123456')
+  const userNameState = useInputState('')
+  const userEmailState = useInputState('')
+  const userPWState = useInputState('')
+  const userPWConfiremState = useInputState('')
 
   const handleSignup = async () => {
     setIsLoading(true)
@@ -30,39 +32,96 @@ function RegisterScreen({ navigation }) {
   }
 
   return (
-    <Box flex={1} p={2} w='90%' mx='auto'>
-      <Heading textAlign='center' size='lg' color='accent'>
-        Fashion Wear
-      </Heading>
-      <Heading mt={1} textAlign='center' color='muted.400' size='xs'>
-        Create a new account
-      </Heading>
+    <ImageBackground style={{ flex: 1 }} source={require('../../assets/bg-man.png')}>
+      <Box flex={1} px={4} pb={12}>
+        <Heading mt={16} textAlign='center' size='3xl' color='white'>
+          Audio
+        </Heading>
+        <Heading textAlign='center' color='white' size='xs'>
+          The only truth is music.
+        </Heading>
+        <Box flex={1} />
+        <VStack space={2} mt={5}>
+          <FromInput placeholder='Your Name' {...userNameState}
+            borderColor='muted.300'
+            variant='filled'
+            InputLeftElement={
+              <Icon
+                name='person-outline'
+                size='sm'
+                ml={2}
+                _light={{
+                  color: 'gray.400',
+                }}
+              />
+            }
+          />
+          <FromInput placeholder='Email' {...userEmailState}
+            borderColor='muted.300'
+            variant='filled'
+            InputLeftElement={
+              <Icon
+                name='mail-outline'
+                size='sm'
+                ml={2}
+                _light={{
+                  color: 'gray.400',
+                }}
+              />
+            }
+          />
+          <FromInput placeholder='Password' {...userPWState} type='password'
+            borderColor='muted.300'
+            variant='filled'
+            InputLeftElement={
+              <Icon
+                name='lock-closed-outline'
+                size='sm'
+                ml={2}
+                _light={{
+                  color: 'gray.400',
+                }}
+              />
+            }
+          />
+          <FromInput placeholder='Confirem Password' {...userPWConfiremState} type='password'
+            borderColor='muted.300'
+            variant='filled'
+            InputLeftElement={
+              <Icon
+                name='lock-closed-outline'
+                size='sm'
+                ml={2}
+                _light={{
+                  color: 'gray.400',
+                }}
+              />
+            }
+          />
 
-      <VStack space={2} mt={5}>
-        <FromInput label='Your Name' {...userNameState} />
-        <FromInput label='Email ID' {...userEmailState} />
-        <FromInput label='Password' {...userPWState} type='password' />
-        <FromInput label='Confirem Password' {...userPWConfiremState} type='password' />
-
-        <VStack space={3}>
-          <Button onPress={handleSignup} colorScheme='green' _text={{ color: 'white' }}>
-            Sign Up
-          </Button>
-
-          <HStack space={2} justifyContent='center'>
-            <Text fontSize='sm' color='muted.700' fontWeight={400}>
-              I already have an account
-            </Text>
-            <Link
-              onPress={() => navigation.navigate('SignIn')}
-              _text={{ color: 'blue.500', bold: true, fontSize: 'sm' }}
-            >
-              Sign In
-            </Link>
-          </HStack>
+          <VStack mt={2} space={8}>
+            <Button
+              py={4}
+              onPress={handleSignup}
+              colorScheme='green'
+              size='lg'
+              rounded={10}
+              _text={{ color: 'white', fontWeight: 'bold' }}>
+              Sign Up
+            </Button>
+            <HStack space={2} justifyContent='center'>
+              <Text color='muted.300' fontWeight={400}>If you already have an account?</Text>
+              <Link
+                onPress={() => navigation.navigate('SignIn')}
+                _text={{ color: 'accent', textDecoration: 'underline', bold: true }}
+              >
+                Sign In here
+              </Link>
+            </HStack>
+          </VStack>
         </VStack>
-      </VStack>
-    </Box>
+      </Box>
+    </ImageBackground>
   )
 }
 
