@@ -3,6 +3,7 @@ import { ImageBackground } from 'react-native'
 import Icon from '../../components/ui/Icon'
 import React, { useState } from 'react'
 import FromInput from '../../components/ui/FormInput'
+import FatButton from '../../components/FatButton'
 import FullPageSpinner from '../../components/ui/FullPageSpinner'
 import { loginWithEmail } from '../../firebase/firebase'
 import { useInputState } from '../../hooks'
@@ -81,15 +82,9 @@ function SignInScreen({ navigation }) {
             >
               Forget Password
             </Link>
-            <Button
-              py={4}
-              onPress={handleSignIn}
-              colorScheme='green'
-              size='lg'
-              rounded={10}
-              _text={{ color: 'white', fontWeight: 'bold' }}>
+            <FatButton onPress={handleSignIn}>
               Sign In
-            </Button>
+            </FatButton>
 
             <HStack space={2} justifyContent='center'>
               <Text color='muted.300' fontWeight={400}>

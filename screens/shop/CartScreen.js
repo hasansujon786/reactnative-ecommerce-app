@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from '../../components/CartItem'
+import FatButton from '../../components/FatButton'
 import { fetchOnlyUserCarts, removeFromCart } from '../../store/actions/cart'
 import { addOrder } from '../../store/actions/order'
 
@@ -51,15 +52,9 @@ export default function Cart({ navigation }) {
             USD {cartTotalAmount.toFixed(2)}
           </Heading>
         </HStack>
-        <Button
-          py={4}
-          onPress={() => dispatch(addOrder(cartItems, cartTotalAmount))}
-          colorScheme='green'
-          size='md'
-          rounded={10}
-          _text={{ color: 'white', fontWeight: 'bold' }}>
-          Proceed to Checkout
-        </Button>
+        <FatButton onPress={() => dispatch(addOrder(cartItems, cartTotalAmount))}>
+          Proceed to Checkout dffs
+        </FatButton>
       </Stack>
     </Box>
   )

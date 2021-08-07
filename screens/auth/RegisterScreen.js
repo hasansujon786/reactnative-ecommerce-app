@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { ImageBackground } from 'react-native'
 import FromInput from '../../components/ui/FormInput'
 import FullPageSpinner from '../../components/ui/FullPageSpinner'
+import FatButton from '../../components/FatButton'
 import { registerWithEmail } from '../../firebase/firebase'
 import { useInputState } from '../../hooks'
 
@@ -100,15 +101,9 @@ function RegisterScreen({ navigation }) {
           />
 
           <VStack mt={2} space={8}>
-            <Button
-              py={4}
-              onPress={handleSignup}
-              colorScheme='green'
-              size='lg'
-              rounded={10}
-              _text={{ color: 'white', fontWeight: 'bold' }}>
+            <FatButton onPress={handleSignup}>
               Sign Up
-            </Button>
+            </FatButton>
             <HStack space={2} justifyContent='center'>
               <Text color='muted.300' fontWeight={400}>If you already have an account?</Text>
               <Link
