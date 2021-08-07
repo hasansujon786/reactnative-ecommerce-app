@@ -14,8 +14,8 @@ export default function HeaderCartButton() {
   return (
     <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
       <Item
-        title='Cart'
-        iconName='ios-cart-outline'
+        title='Delete cart items'
+        iconName='trash-outline'
         onPress={() => navigation.navigate('Cart')}
       />
     </HeaderButtons>

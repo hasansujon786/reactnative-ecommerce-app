@@ -1,9 +1,8 @@
-import { Box, Button, Center, Checkbox, Heading, HStack } from 'native-base'
+import { Box, Text, Stack, Button, Center, Checkbox, Heading, HStack } from 'native-base'
 import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from '../../components/CartItem'
-import BottomActionBar from '../../components/ui/BottomActionBar'
 import { fetchOnlyUserCarts, removeFromCart } from '../../store/actions/cart'
 import { addOrder } from '../../store/actions/order'
 
@@ -16,7 +15,7 @@ export default function Cart({ navigation }) {
   }, [])
 
   return (
-    <Box flex={1} pb={16}>
+    <Box flex={1} pb={24}>
       <FlatList
         keyExtractor={(item) => item.productId}
         contentContainerStyle={{ paddingBottom: 20 }}
@@ -34,30 +33,34 @@ export default function Cart({ navigation }) {
         )}
       />
 
-      <BottomActionBar space={4}>
-        <Center>
-          <Checkbox rounded='lg' colorScheme='green' aria-label='check all cart items'>
-            All
-          </Checkbox>
-        </Center>
-        <HStack flex={1} justifyContent='flex-end' alignItems='baseline'>
-          <Heading size='md' color='blueGray.600'>
-            Total:{' '}
-          </Heading>
-          <Heading size='lg' color='accent'>
-            ${cartTotalAmount.toFixed(2)}
+      <Stack
+        px={4}
+        py={2}
+        bottom={0}
+        right={0}
+        left={0}
+        position='absolute'
+        borderTopWidth={1}
+        borderColor='gray.300'
+        bg='white'
+      >
+        <HStack alignItems='center' justifyContent='space-between' mb={3}>
+          <Text fontSize='sm' fontWeight='bold' color='gray.500'>Total 2 Items</Text>
+
+          <Heading color='gray.700' size='md' fontWeight='bold'>
+            USD {cartTotalAmount.toFixed(2)}
           </Heading>
         </HStack>
-
         <Button
-          rounded='xl'
-          disabled={cartItems.length === 0}
-          colorScheme='green'
+          py={4}
           onPress={() => dispatch(addOrder(cartItems, cartTotalAmount))}
-        >
-          Checkout
+          colorScheme='green'
+          size='md'
+          rounded={10}
+          _text={{ color: 'white', fontWeight: 'bold' }}>
+          Proceed to Checkout
         </Button>
-      </BottomActionBar>
+      </Stack>
     </Box>
   )
 }
