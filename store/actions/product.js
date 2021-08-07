@@ -1,5 +1,6 @@
 import { COLLECTION, db } from '../../firebase/firebase'
 import Product from '../../models/product'
+import {PRODUCTS} from '../../data/dummy'
 
 export const SET_PRODUCT = 'SET_PRODUCT'
 export const CREATE_PRODUCT = 'CREATE_PRODUCT'
@@ -9,20 +10,20 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 export const fetchProduct = () => {
   return async (dispatch) => {
-    const fetchedProducts = []
-    const snapshot = await db.collection(COLLECTION.products).get()
-    snapshot.forEach((doc) => {
-      const data = doc.data()
-      const product = new Product(
-        doc.id,
-        data.uid,
-        data.title,
-        data.imageUrl,
-        data.description,
-        data.price
-      )
-      fetchedProducts.push(product)
-    })
+    const fetchedProducts = PRODUCTS
+    // const snapshot = await db.collection(COLLECTION.products).get()
+    // snapshot.forEach((doc) => {
+    //   const data = doc.data()
+    //   const product = new Product(
+    //     doc.id,
+    //     data.uid,
+    //     data.title,
+    //     data.imageUrl,
+    //     data.description,
+    //     data.price
+    //   )
+    //   fetchedProducts.push(product)
+    // })
 
     dispatch({ type: SET_PRODUCT, products: fetchedProducts })
   }

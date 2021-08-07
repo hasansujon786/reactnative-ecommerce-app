@@ -1,31 +1,39 @@
-import { Box, Heading, Image, Stack } from 'native-base'
+import { Box, Text, Heading, HStack, Image, Stack } from 'native-base'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import Icon from './ui/Icon'
 import IconButton from './ui/IconButton'
 
-function ProductPreview({ product, children, onIconPress, iconName = 'heart', ...props }) {
+function ProductPreview({ product, children, onIconPress, width = 200, height = 180, iconName = 'heart', ...props }) {
   return (
     <TouchableOpacity useForeground {...props}>
-      <Box maxWidth='100%'>
-        <Box shadow={1} rounded='lg'>
+      <Box p={2} width={width} maxWidth={400} bg='white' rounded='lg' borderWidth={1} borderColor='muted.200'>
+        <Box height={height}>
           <Image
             source={{
               uri: product.imageUrl,
             }}
+            resizeMode='contain'
             alt={product.title}
-            width={'100%'}
-            height={220}
+            width='100%'
+            height='100%'
             rounded='lg'
           />
         </Box>
         <Stack mt={2}>
-          <Heading size='sm' noOfLines={2} color='blueGray.700'>
+          <Heading color='gray.700' noOfLines={2} size='sm' fontWeight='normal'>
             {product.title}
           </Heading>
-          <Heading size='md' mt={0} noOfLines={2} color='accent'>
-            ${product.price.toFixed(2)}
+          <Heading color='gray.700' size='sm' fontWeight='bold'>
+            USD {product.price.toFixed(2)}
           </Heading>
+          <HStack mt={1} justifyContent='space-between'>
+            <HStack>
+              <Icon mr={1} size='xs' name='star' color='orange.500' />
+              <Text fontSize='sm' color='gray.700'>4.3</Text>
+            </HStack>
+            <Text fontSize='sm' color='gray.700'>45 Reviews</Text>
+          </HStack>
         </Stack>
         {onIconPress && (
           <IconButton
