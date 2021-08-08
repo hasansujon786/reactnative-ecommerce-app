@@ -4,6 +4,7 @@ import { ScrollView, useWindowDimensions, View, TouchableOpacity } from 'react-n
 import { useDispatch, useSelector } from 'react-redux'
 import Icon from '../../components/ui/Icon'
 import IconButton from '../../components/ui/IconButton'
+import ReviewItem from '../../components/ReviewItem'
 import { addToCart } from '../../store/actions/cart'
 
 export function CustomHeader({ navigation }) {
@@ -47,10 +48,7 @@ const Tab = ({ title, onPress, isActive, ...props }) => {
 
 const Overview = () => {
   return (
-    <Stack space={2} mt={3} px={4}>
-      <Text color='gray.600' fontSize='lg'>
-      </Text>
-
+    <Stack space={2} px={4}>
       <Text color='gray.600' fontSize='lg'>
         2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
         voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
@@ -99,13 +97,32 @@ const Overview = () => {
   )
 }
 const Specification = () => {
+  const specification = [
+    { title: 'Product Dimensions', detail: '5.87 x 1.81 x 7.87 inches' },
+    { title: 'Item Weight', detail: '4.8 ounces' },
+    { title: 'Manufacturer', detail: 'Sony' },
+    { title: 'ASIN', detail: 'BDM2M33I' },
+    { title: 'Batteries', detail: '1 Lithium ion batteries required' },
+  ]
   return (
-    <Box>Specification</Box>
+    <Stack mx={4} borderTopWidth={0} borderWidth={1} borderColor='muted.300'>
+      {specification.map(spec => (
+        <HStack key={spec.title} px={2} py={2} justifyContent='space-between' borderTopWidth={1} borderColor='muted.300' >
+          <Text fontSize='lg' color='gray.800'>{spec.title}</Text>
+          <Text fontSize='md' color='gray.500'>{spec.detail}</Text>
+        </HStack>
+      ))}
+    </Stack>
   )
 }
 const Reviews = () => {
   return (
-    <Box>Reviews</Box>
+    <Stack px={4} space={4}>
+      <ReviewItem />
+      <ReviewItem />
+      <ReviewItem />
+      <ReviewItem />
+    </Stack>
   )
 }
 
@@ -131,7 +148,7 @@ function ProductsDetails({ navigation, route }) {
       <ScrollView>
         <Box shadow={2} roundedBottom={22} overflow='hidden'>
           <Image
-            alt='something something'
+            alt='product image'
             height={window.height / 2}
             source={{
               uri: product.imageUrl,
