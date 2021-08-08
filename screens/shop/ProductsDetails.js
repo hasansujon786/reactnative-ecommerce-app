@@ -1,6 +1,6 @@
 import { Box, Center, Button, Heading, HStack, Image, Stack, Text } from 'native-base'
-import React from 'react'
-import { ScrollView, useWindowDimensions, View } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, useWindowDimensions, View, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Icon from '../../components/ui/Icon'
 import IconButton from '../../components/ui/IconButton'
@@ -29,6 +29,86 @@ export function CustomHeader({ navigation }) {
   )
 }
 
+const TABS = ['Overview', 'Specification', 'Reviews']
+const Tab = ({ title, onPress, isActive, ...props }) => {
+  return (
+    <TouchableOpacity useForeground onPress={onPress}>
+      <Box
+        justifyContent='center'
+        alignItems='center'
+        {...props}
+      >
+        <Text fontSize='md' color='gray.800'>{title}</Text>
+        <Box opacity={isActive ? 1 : 0} mt={1} width={6} borderBottomWidth={4} borderColor='accent' />
+      </Box>
+    </TouchableOpacity>
+  )
+}
+
+const Overview = () => {
+  return (
+    <Stack space={2} mt={3} px={4}>
+      <Text color='gray.600' fontSize='lg'>
+      </Text>
+
+      <Text color='gray.600' fontSize='lg'>
+        2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+
+      <Text color='gray.600' fontSize='lg'>
+        3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+
+      <Text color='gray.600' fontSize='lg'>
+        4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+
+      <Text color='gray.600' fontSize='lg'>
+        5 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+
+      <Text color='gray.600' fontSize='lg'>
+        6 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+      <Text color='gray.600' fontSize='lg'>
+        7 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+      <Text color='gray.600' fontSize='lg'>
+        8 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+      <Text color='gray.600' fontSize='lg'>
+        9 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
+        voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
+        optio possimus delectus quae minus?
+      </Text>
+    </Stack>
+  )
+}
+const Specification = () => {
+  return (
+    <Box>Specification</Box>
+  )
+}
+const Reviews = () => {
+  return (
+    <Box>Reviews</Box>
+  )
+}
+
 function ProductsDetails({ navigation, route }) {
   const dispatch = useDispatch()
   const window = useWindowDimensions()
@@ -41,9 +121,13 @@ function ProductsDetails({ navigation, route }) {
   // }, [navigation, product])
   //
 
+  const [selectedTab, setSelectedTab] = useState(0)
+  const hanldeSelectedTab = (tabNm) => {
+    setSelectedTab(tabNm)
+  }
+
   return (
     <View style={{ overflow: 'hidden', height: window.height }}>
-      <CustomHeader navigation={navigation} />
       <ScrollView>
         <Box shadow={2} roundedBottom={22} overflow='hidden'>
           <Image
@@ -54,91 +138,22 @@ function ProductsDetails({ navigation, route }) {
             }}
           />
         </Box>
-
-        <Stack mt={3} px={4}>
-          <HStack justifyContent='space-between' alignItems='center'>
-            <Stack>
-              <Heading noOfLines={2} color='accent'>
-                ${product.price.toFixed(2)}
-              </Heading>
-              <HStack>
-                <Text fontSize='lg' color='blueGray.500' strikeThrough>
-                  $342
-                </Text>
-                <Text fontSize='lg' color='blueGray.900'>
-                  {' '}
-                  -30%
-                </Text>
-              </HStack>
-            </Stack>
-            <HStack space={2}>
-              <IconButton
-                bg='white'
-                icon={<Icon color='blueGray.500' size='sm' name='heart-outline' />}
-              />
-              <IconButton
-                bg='white'
-                icon={<Icon color='blueGray.500' size='sm' name='share-social-outline' />}
-              />
-            </HStack>
-          </HStack>
-
-          <Heading size='md' color='blueGray.700'>
+        <Stack mt={4} px={4} space={1}>
+          <Heading size='lg' noOfLines={1} color='accent'>
+            USD {product.price.toFixed(2)}
+          </Heading>
+          <Heading size='md' color='gray.800'>
             {product.title}
           </Heading>
         </Stack>
 
-        {/* Descrition */}
-        <Stack space={2} mt={3} px={4}>
-          <Text color='blueGray.600' fontSize='lg'>
-            {product.description}
-          </Text>
+        <HStack my={4} pl={4} space={5}>
+          {TABS.map((tab, idx) => <Tab onPress={() => hanldeSelectedTab(idx)} isActive={idx == selectedTab} key={idx} title={tab} />)}
+        </HStack>
+        {selectedTab == 0 && <Overview />}
+        {selectedTab == 1 && <Specification />}
+        {selectedTab == 2 && <Reviews />}
 
-          <Text color='blueGray.600' fontSize='lg'>
-            2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-
-          <Text color='blueGray.600' fontSize='lg'>
-            3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-
-          <Text color='blueGray.600' fontSize='lg'>
-            4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-
-          <Text color='blueGray.600' fontSize='lg'>
-            5 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-
-          <Text color='blueGray.600' fontSize='lg'>
-            6 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-          <Text color='blueGray.600' fontSize='lg'>
-            7 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-          <Text color='blueGray.600' fontSize='lg'>
-            8 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-          <Text color='blueGray.600' fontSize='lg'>
-            9 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, quia magnam reiciendis
-            voluptatem aliquam quos laborum, suscipit ducimus a, dicta ab sed iure obcaecati ut
-            optio possimus delectus quae minus?
-          </Text>
-        </Stack>
         <Box height={24} />
       </ScrollView>
 

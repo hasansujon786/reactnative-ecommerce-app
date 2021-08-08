@@ -33,13 +33,13 @@ function ProductsOverviewScreen({ navigation }) {
           <Heading color='gray.800' size='xl'>What are you loking for today?</Heading>
           <SearchBar pt={4} />
         </Box>
-        <Box px={4} pt={10} flexDirection='row'>
+        <Box pt={10} flexDirection='row'>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
           >
             {PILLS.map((pill, idx) =>
-              <Pill mr={2} key={pill} isActive={idx == 0} title={pill}/>
+              <Pill ml={idx == 0?4:0} mr={2} key={pill} isActive={idx == 0} title={pill}/>
             )}
           </ScrollView>
         </Box>

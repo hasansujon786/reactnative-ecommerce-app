@@ -12,6 +12,7 @@ import AuthStackNavigator from './AuthNavigator'
 import CartStackNavigator from './CartNavigator'
 import CategoryStackNavigator from './CategoryNavigator'
 import ShopStackNavigator from './ShopNavigator'
+import HeaderProductDetail from '../components/ui/HeaderProductDetail'
 
 const Tab = createBottomTabNavigator()
 const tabScreenOptions = ({ route }) => ({
@@ -72,12 +73,21 @@ const Stack = createStackNavigator()
 export default () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          // headerStyle: { elevation: 0 },
+          cardStyle: { backgroundColor: Colors.defaultBackground }
+        }}
+      >
         <Stack.Screen name='Root' component={RootNavigator} options={{ headerShown: false }} />
         <Stack.Screen
           name='ProductsDetails'
           component={ProductsDetails}
-          options={{ headerShown: false }}
+          options={{
+            title: '',
+            headerRight: () => <HeaderProductDetail />,
+            headerTransparent: false
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
