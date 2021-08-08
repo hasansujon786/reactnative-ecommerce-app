@@ -4,6 +4,7 @@ import store from '../index'
 export const SET_CART = 'SET_CART'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const UPDATE_CART_ITEM_COUNT = 'UPDATE_CART_ITEM_COUNT'
 
 export const fetchOnlyUserCarts = () => {
   return async (dispatch) => {
@@ -60,3 +61,21 @@ export const removeFromCart = (cartId) => {
     dispatch({ type: REMOVE_FROM_CART, cartId })
   }
 }
+
+export const updateCartItemCount = (cartId, updateBy) => {
+  return async (dispatch) => {
+    try {
+      const doc = await db.collection(COLLECTION.carts).doc(cartId).get()
+      if (doc.exists) {
+        const quantity = doc.data().quantity + updateBy
+        await db.collection(COLLECTION.carts).doc(doc.id).update({ quantity })
+        dispatch({ type: UPDATE_CART_ITEM_COUNT, cartId, quantity})
+      }
+
+    } catch (err) {
+      /* handle error */
+      console.log(err)
+    }
+  }
+}
+

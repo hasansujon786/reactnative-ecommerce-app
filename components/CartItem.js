@@ -3,7 +3,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import Icon from './ui/Icon'
 
-function CartItem({ item, onSelect, onRemove, ...props }) {
+function CartItem({ item, onSelect, onRemove, onUpdateCount, ...props }) {
   return (
     <Box px={2} {...props}>
       <HStack alignItems='center'>
@@ -16,6 +16,8 @@ function CartItem({ item, onSelect, onRemove, ...props }) {
             width={90}
             resizeMode='cover'
             rounded='xl'
+            borderWidth={1}
+            borderColor='muted.200'
             alt={item.productTitle}
             source={{
               uri: item.imageUrl,
@@ -24,12 +26,15 @@ function CartItem({ item, onSelect, onRemove, ...props }) {
         </TouchableOpacity>
 
         <Stack space={1} ml={4} py={1} flex={1} >
-          <Heading color='gray.700' noOfLines={2} size='sm' fontWeight='normal'>
-            {item.productTitle}
-          </Heading>
-          <Heading color='gray.700' size='sm' fontWeight='bold'>
-            USD {item.productPrice.toFixed(2)}
-          </Heading>
+          <TouchableOpacity onPress={onSelect}>
+            <Heading color='gray.700' noOfLines={2} size='sm' fontWeight='normal'>
+              {item.productTitle}
+            </Heading>
+            <Heading color='gray.700' size='sm' fontWeight='bold'>
+              USD {item.productPrice.toFixed(2)}
+            </Heading>
+          </TouchableOpacity>
+
           <HStack justifyContent='space-between' >
             <HStack alignItems='center' flexBasis='50%' justifyContent='space-between'>
               <IconButton
@@ -37,7 +42,7 @@ function CartItem({ item, onSelect, onRemove, ...props }) {
                 colorScheme='dark'
                 rounded='xl'
                 size='sm'
-                onPress={onRemove}
+                onPress={() => onUpdateCount(item.id, item.quantity, -1)}
                 icon={<Icon name='remove-outline' size='xs' />}
               />
               <Text fontSize='lg'>
@@ -48,6 +53,7 @@ function CartItem({ item, onSelect, onRemove, ...props }) {
                 colorScheme='dark'
                 rounded='xl'
                 size='sm'
+                onPress={() => onUpdateCount(item.id, item.quantity, 1)}
                 icon={<Icon name='add-outline' size='xs' />}
               />
             </HStack>
@@ -55,6 +61,7 @@ function CartItem({ item, onSelect, onRemove, ...props }) {
               colorScheme='dark'
               rounded='xl'
               size='sm'
+              onPress={onRemove}
               icon={<Icon color='gray.400' name='trash-outline' size='sm' />}
             />
           </HStack>

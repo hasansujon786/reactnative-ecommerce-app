@@ -1,6 +1,6 @@
 // import { CART_ITEMS } from '../../data/dummy'
 import Cart from '../../models/cart'
-import { ADD_TO_CART, REMOVE_FROM_CART, SET_CART } from '../actions/cart'
+import { ADD_TO_CART, REMOVE_FROM_CART, SET_CART, UPDATE_CART_ITEM_COUNT } from '../actions/cart'
 import { ADD_ORDER } from '../actions/order'
 
 const initialState = {
@@ -48,6 +48,19 @@ export default (state = initialState, action) => {
         ...state,
         totalAmout: state.totalAmout - foundItem.quantity * foundItem.productPrice,
         items: state.items.filter((item) => item.id != cartId),
+      }
+    }
+
+    case UPDATE_CART_ITEM_COUNT: {
+      const { cartId, quantity } = action
+      const cartItems = [...state.items]
+      const foundIndex = cartItems.findIndex((item) => item.id == cartId)
+      cartItems[foundIndex] = {...cartItems[foundIndex], quantity}
+
+      return {
+        ...state,
+        totalAmout: cartItems.reduce((ptl, item) => ptl + item.quantity * item.productPrice, 0),
+        items: cartItems
       }
     }
 

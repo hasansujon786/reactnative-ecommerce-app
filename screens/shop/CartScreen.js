@@ -4,7 +4,7 @@ import { FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from '../../components/CartItem'
 import FatButton from '../../components/FatButton'
-import { fetchOnlyUserCarts, removeFromCart } from '../../store/actions/cart'
+import { fetchOnlyUserCarts, removeFromCart, updateCartItemCount } from '../../store/actions/cart'
 import { addOrder } from '../../store/actions/order'
 
 export default function Cart({ navigation }) {
@@ -14,6 +14,15 @@ export default function Cart({ navigation }) {
   useEffect(() => {
     dispatch(fetchOnlyUserCarts())
   }, [])
+
+  const handleUpdateCount = (cartId, preQuantity, updateBy) => {
+    const updatedQuanty = preQuantity + updateBy
+    if (updatedQuanty > 0) {
+      dispatch(updateCartItemCount(cartId, updateBy))
+    } else if (updatedQuanty < 1) {
+      dispatch(removeFromCart(cartId))
+    }
+  }
 
   return (
     <Box flex={1} pb={24}>
@@ -25,9 +34,10 @@ export default function Cart({ navigation }) {
           <Box mt={6} px={2}>
             <CartItem
               onSelect={() =>
-                navigation.navigate('ProductsDetails', { productId: itemData.item.id })
+                navigation.navigate('ProductsDetails', { productId: itemData.item.productId })
               }
               onRemove={() => dispatch(removeFromCart(itemData.item.id))}
+              onUpdateCount={handleUpdateCount}
               item={itemData.item}
             />
           </Box>
@@ -46,7 +56,7 @@ export default function Cart({ navigation }) {
         bg='white'
       >
         <HStack alignItems='center' justifyContent='space-between' mb={3}>
-          <Text fontSize='sm' fontWeight='bold' color='gray.500'>Total 2 Items</Text>
+          <Text fontSize='sm' fontWeight='bold' color='gray.500'>Total {cartItems.length} Items</Text>
 
           <Heading color='gray.700' size='md' fontWeight='bold'>
             USD {cartTotalAmount.toFixed(2)}
