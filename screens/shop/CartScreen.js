@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/native';
 import { Box, Text, Stack, Button, Center, Checkbox, Heading, HStack } from 'native-base'
 import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
@@ -8,12 +9,15 @@ import { fetchOnlyUserCarts, removeFromCart, updateCartItemCount } from '../../s
 import { addOrder } from '../../store/actions/order'
 
 export default function Cart({ navigation }) {
+  const tabIsFocused = useIsFocused()
   const cartTotalAmount = useSelector((state) => state.cart.totalAmout)
   const cartItems = useSelector((state) => state.cart.items)
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchOnlyUserCarts())
-  }, [])
+    if (tabIsFocused) {
+      dispatch(fetchOnlyUserCarts())
+    }
+  }, [tabIsFocused])
 
   const handleUpdateCount = (cartId, preQuantity, updateBy) => {
     const updatedQuanty = preQuantity + updateBy

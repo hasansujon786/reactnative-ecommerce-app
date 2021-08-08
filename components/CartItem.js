@@ -14,10 +14,11 @@ function CartItem({ item, onSelect, onRemove, onUpdateCount, ...props }) {
           <Image
             height={90}
             width={90}
-            resizeMode='cover'
+            resizeMode='contain'
             rounded='xl'
             borderWidth={1}
             borderColor='muted.200'
+            bg='white'
             alt={item.productTitle}
             source={{
               uri: item.imageUrl,
