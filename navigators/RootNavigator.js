@@ -1,18 +1,21 @@
+import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import { Colors } from '../constans/color'
-import useAuthUserListener from '../hooks/useAuthUserListener'
-// import Playground from '../Playground'
-import ProductsDetails from '../screens/shop/ProductsDetails'
+import { NavigationContainer } from '@react-navigation/native'
+// StackNavigators
+import ShopStackNavigator from './ShopNavigator'
+import CategoryStackNavigator from './CategoryNavigator'
+import SearchNavigator from './SearchNavigator'
+import CartStackNavigator from './CartNavigator'
 import AccountStackNavigator from './AccountNavigator'
 import AuthStackNavigator from './AuthNavigator'
-import CartStackNavigator from './CartNavigator'
-import CategoryStackNavigator from './CategoryNavigator'
-import ShopStackNavigator from './ShopNavigator'
+// components
 import HeaderProductDetail from '../components/ui/HeaderProductDetail'
+import ProductsDetails from '../screens/shop/ProductsDetails'
+// local
+import useAuthUserListener from '../hooks/useAuthUserListener'
+import { Colors } from '../constans/color'
 
 const Tab = createBottomTabNavigator()
 const tabScreenOptions = ({ route }) => ({
@@ -34,6 +37,8 @@ const tabScreenOptions = ({ route }) => ({
         break
       case 'Admin':
         iconName = 'clipboard'
+      case 'Search':
+        iconName = 'search'
         break
       default:
         iconName = 'reorder-two'
@@ -54,6 +59,7 @@ function RootNavigator() {
     >
       <Tab.Screen name='Shop' component={ShopStackNavigator} />
       <Tab.Screen name='Category' component={CategoryStackNavigator} />
+      <Tab.Screen name='Search' component={SearchNavigator} />
       {isSignedIn ? (
         <>
           <Tab.Screen name='Cart' component={CartStackNavigator} />

@@ -9,7 +9,7 @@ function FormInput({ label, children, ...otherProps }) {
       >
         {label}
       </FormControl.Label>
-      <Input style={{ height: 46, boxShadow: 'none' }}
+      <Input style={{ height: 46 }}
         borderRadius={10}
         borderColor='muted.300'
         size='lg'

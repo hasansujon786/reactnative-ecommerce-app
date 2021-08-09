@@ -4,10 +4,10 @@ import { TouchableOpacity } from 'react-native'
 import Icon from './ui/Icon'
 import IconButton from './ui/IconButton'
 
-function ProductPreview({ product, children, onIconPress, width = 200, height = 180, iconName = 'heart', ...props }) {
+function ProductPreview({ product, children, onIconPress, width, height = 180, iconName = 'heart', ...props }) {
   return (
     <TouchableOpacity useForeground {...props}>
-      <Box p={2} width={width} maxWidth={400} bg='white' rounded='lg' borderWidth={1} borderColor='muted.200'>
+      <Box p={2} width={width} maxWidth='100%' bg='white' rounded='lg' borderWidth={1} borderColor='muted.200'>
         <Box height={height}>
           <Image
             source={{
