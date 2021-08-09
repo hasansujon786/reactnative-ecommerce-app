@@ -1,13 +1,16 @@
-import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import HeaderSingInButtons from '../components/ui/HeaderSingInButtons'
-import {Colors} from '../constans/color'
+import { createStackNavigator } from '@react-navigation/stack'
+// screens
 import SignInScreen from '../screens/auth/SignInScreen'
 import RegisterScreen from '../screens/auth/RegisterScreen'
 import PromptSingIn from '../screens/auth/PromptSingIn'
-const Stack = createStackNavigator()
+// component
+import HeaderSingInButtons from '../components/ui/HeaderSingInButtons'
+// hooks & others
+import {Colors} from '../constans/color'
 
-export default function AuthStackNavigator() {
+const Stack = createStackNavigator()
+export default function AuthNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen

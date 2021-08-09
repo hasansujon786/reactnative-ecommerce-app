@@ -1,11 +1,13 @@
-import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import { Colors } from '../constans/color'
+import { createStackNavigator } from '@react-navigation/stack'
+// screens
 import HomeScreen from '../screens/shop/HomeScreen'
 import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen'
-const Stack = createStackNavigator()
+// hooks & others
+import { Colors } from '../constans/color'
 
-export default function ShopStackNavigator() {
+const Stack = createStackNavigator()
+export default function ShopNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{

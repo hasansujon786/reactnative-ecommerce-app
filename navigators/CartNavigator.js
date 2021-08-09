@@ -1,10 +1,12 @@
-import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import HeaderCartButton from '../components/ui/HeaderCartButton'
+import { createStackNavigator } from '@react-navigation/stack'
+// screens
 import CartScreen from '../screens/shop/CartScreen'
-const Stack = createStackNavigator()
+// component
+import HeaderCartButton from '../components/ui/HeaderCartButton'
 
-export default function CartStackNavigator() {
+const Stack = createStackNavigator()
+export default function CartNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen

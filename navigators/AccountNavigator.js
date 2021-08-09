@@ -1,16 +1,18 @@
-import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import HeaderAccountButton from '../components/ui/HeaderAccountButton'
-import HeaderAdminButtons from '../components/ui/HeaderAdminButtons'
-import HeaderStoreEditProduct from '../components/ui/HeaderStoreEditProduct'
+import { createStackNavigator } from '@react-navigation/stack'
+// screens
 import AccountDashboardScreen from '../screens/user/AccountDashboardScreen'
 import EditProductScreen from '../screens/user/EditProductScreen'
 import OrderScreen from '../screens/user/OrderScreen'
 import SettingsScreen from '../screens/user/SettingsScreen'
 import UserProductScreen from '../screens/user/UserProductScreen'
-const Stack = createStackNavigator()
+// component
+import HeaderAccountButton from '../components/ui/HeaderAccountButton'
+import HeaderAdminButtons from '../components/ui/HeaderAdminButtons'
+import HeaderStoreEditProduct from '../components/ui/HeaderStoreEditProduct'
 
-export default function AccountStackNavigator() {
+const Stack = createStackNavigator()
+export default function AccountNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen

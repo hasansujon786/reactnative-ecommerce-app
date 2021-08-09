@@ -1,8 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-// Screens 
+// Screens
 import SearchScreen from '../screens/shop/SearchScreen'
-
+// hooks & others
 import { Colors } from '../constans/color'
 
 const Stack = createStackNavigator()

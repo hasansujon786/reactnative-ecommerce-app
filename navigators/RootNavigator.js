@@ -4,16 +4,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 // StackNavigators
-import ShopStackNavigator from './ShopNavigator'
-import CategoryStackNavigator from './CategoryNavigator'
+import ShopNavigator from './ShopNavigator'
+import CategoryNavigator from './CategoryNavigator'
 import SearchNavigator from './SearchNavigator'
-import CartStackNavigator from './CartNavigator'
-import AccountStackNavigator from './AccountNavigator'
-import AuthStackNavigator from './AuthNavigator'
+import CartNavigator from './CartNavigator'
+import AccountNavigator from './AccountNavigator'
+import AuthNavigator from './AuthNavigator'
 // components
 import HeaderProductDetail from '../components/ui/HeaderProductDetail'
 import ProductsDetails from '../screens/shop/ProductsDetails'
-// local
+// hooks & other
 import useAuthUserListener from '../hooks/useAuthUserListener'
 import { Colors } from '../constans/color'
 
@@ -57,18 +57,18 @@ function RootNavigator() {
       screenOptions={tabScreenOptions}
       tabBarOptions={{ activeTintColor: Colors.accent, inactiveTintColor: 'gray' }}
     >
-      <Tab.Screen name='Shop' component={ShopStackNavigator} />
-      <Tab.Screen name='Category' component={CategoryStackNavigator} />
+      <Tab.Screen name='Shop' component={ShopNavigator} />
+      <Tab.Screen name='Category' component={CategoryNavigator} />
       <Tab.Screen name='Search' component={SearchNavigator} />
       {isSignedIn ? (
         <>
-          <Tab.Screen name='Cart' component={CartStackNavigator} />
-          <Tab.Screen name='Account' component={AccountStackNavigator} />
+          <Tab.Screen name='Cart' component={CartNavigator} />
+          <Tab.Screen name='Account' component={AccountNavigator} />
         </>
       ) : (
         <>
-          <Tab.Screen name='Cart' component={AuthStackNavigator} />
-          <Tab.Screen name='Account' component={AuthStackNavigator} />
+          <Tab.Screen name='Cart' component={AuthNavigator} />
+          <Tab.Screen name='Account' component={AuthNavigator} />
         </>
       )}
     </Tab.Navigator>
